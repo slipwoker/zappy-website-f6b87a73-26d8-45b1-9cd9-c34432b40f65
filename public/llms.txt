@@ -1,0 +1,59 @@
+# Business — Generative Engine Optimization Map
+
+---
+
+## Pages
+
+### בית
+https://example.com
+מאור נדלן 46 מלווה אתכם בכל שלב בדרך לנכס החלומות. סוכנות נדלן מקצועית עם ניסיון עשיר ברכישה, מכירה וייעוץ השקעה בנדלן למשקיעים. צרו קשר עוד היום!
+
+### אודות
+https://example.com/about
+הכירו את הצוות שהפך חלומות נדלן למציאות. סוכן נדלן לרוכשים בפעם הראשונה עם גישה אישית, ידע מעמיק ומחויבות מלאה לכל לקוח. גלו מדוע אלפים בוחרים בנו!
+
+### שכונות
+https://example.com/neighborhoods
+סקירה מקיפה של השכונות המבוקשות ביותר, כולל דירות למבוגרים מצמצמים ואפשרויות ייעוץ השקעה בנדלן למשקיעים. מצאו את הסביבה המושלמת לחיים שתמיד רציתם!
+
+### צור קשר
+https://example.com/contact
+רוצים לרכוש, למכור או לקבל ייעוץ מסוכן נדלן לרוכשים בפעם הראשונה? צוות מאור נדלן 46 זמין עבורכם. השאירו פרטים ונחזור אליכם במהירות לתיאום פגישה ללא התחייבות!
+
+### Products
+https://example.com/products
+המוצרים שלנו - מאור נדלן 46
+
+### Product Detail
+https://example.com/product/:slug
+פרטי המוצר - מאור נדלן 46
+
+### Category
+https://example.com/category/:slug
+מוצרים - מאור נדלן 46
+
+## Legal & Policy
+
+### Privacy Policy
+https://example.com/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://example.com/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://example.com/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+# Business Context (for LLM understanding)
+
+## About Business
+---
+
+# Additional Resources
+
+- **Sitemap**: https://example.com/sitemap.xml
+- **Robots.txt**: https://example.com/robots.txt
