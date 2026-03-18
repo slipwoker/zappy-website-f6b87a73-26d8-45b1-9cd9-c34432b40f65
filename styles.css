@@ -1772,7 +1772,7 @@ html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .dropdown-menu {
   .nav-brand,
   html[lang="he"] .nav-brand,
   html[lang="ar"] .nav-brand,
-  .nav-right-group .nav-brand,
+  html[dir="rtl"] .nav-right-group .nav-brand,
   html[lang="he"] .nav-right-group .nav-brand,
   html[lang="ar"] .nav-right-group .nav-brand{position: absolute !important;left: 50% !important;top: 50% !important;transform: translate(-50%, -50%) !important;margin: 0 !important;text-align: center;order: 0 !important;}
   
@@ -2072,7 +2072,7 @@ html[lang="ar"] .nav-container{justify-content: space-between !important;}
 /* On mobile, logo should be centered (handled by mobile media query) */
 @media (min-width: 769px) {
   .nav-brand,
-  .logo-link,
+  html[dir="rtl"] .logo-link,
   html[lang="he"] .nav-brand,
   html[lang="he"] .logo-link,
   html[lang="ar"] .nav-brand,
@@ -2086,7 +2086,7 @@ html[lang="ar"] .nav-menu{order: 1 !important;margin-right: 0 !important;margin-
 
 /* CTA button pushed to far left in RTL */
 .cta-button,
-a.cta-button,
+html[dir="rtl"] a.cta-button,
 html[dir="rtl"] .nav-cta-btn,
 html[lang="he"] .cta-button,
 html[lang="he"] a.cta-button,
@@ -10637,7 +10637,7 @@ html[dir="rtl"] .wrapper {
 }
 
 /* ONLY apply text-align to legal page content that needs RTL alignment */
-.legal-content,
+html[dir="rtl"] .legal-content,
 html[dir="rtl"] .terms-content,
 html[dir="rtl"] .privacy-content,
 html[dir="rtl"] .legal-content p,
@@ -10645,15 +10645,10 @@ html[dir="rtl"] .terms-content p,
 html[dir="rtl"] .privacy-content p,
 html[dir="rtl"] .legal-content li,
 html[dir="rtl"] .terms-content li,
-html[dir="rtl"] .privacy-content li{text-align: right !important;}html[dir="rtl"] .legal-content,
-html[dir="rtl"] .terms-content,
-html[dir="rtl"] .privacy-content,
-html[dir="rtl"] .legal-content p,
-html[dir="rtl"] .terms-content p,
-html[dir="rtl"] .privacy-content p,
-html[dir="rtl"] .legal-content li,
-html[dir="rtl"] .terms-content li,
-html[dir="rtl"] .privacy-content li{direction: rtl !important;}
+html[dir="rtl"] .privacy-content li {
+  direction: rtl !important;
+  text-align: right !important;
+}
 
 
 /* ============================================
@@ -10728,122 +10723,12 @@ html[dir="ltr"] .nav-brand {
 }
 
 /* RTL: Move to left side */
-.zappy-lang-switcher-container{right: auto;left: 12px;}
-
-/* Language Switcher Styles */
-.lang-switcher {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  z-index: 1000;
-}
-
-/* Language switcher positioning - minimal, only gap spacing */
-/* NOTE: Removed margin-left:auto rules that broke V2 layouts */
-/* V2 layouts handle positioning via flexbox, we just add small gap */
-header .lang-switcher,
-nav .lang-switcher,
-.navbar .lang-switcher {
-  margin-left: 8px;
-  margin-right: 8px;
-}
-
-.lang-switcher-current {
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  background: transparent;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  color: inherit;
-  transition: opacity 0.2s ease;
-}
-
-.lang-switcher-current:hover {
-  opacity: 0.7;
-}
-
-/* ===========================================
-   LANGUAGE DROPDOWN POSITIONING
-   CRITICAL: position: absolute !important overrides any
-   mobile responsive CSS that resets absolute positioning
-   to relative. The dropdown MUST be absolutely positioned
-   relative to its parent .lang-switcher.
-   
-   HIGH SPECIFICITY SELECTORS needed to override:
-   [style*="position: absolute"]:not(...) { position: relative !important }
-   That selector has specificity ~0,4,0 so we need 0,5,0+ to win
-   =========================================== */
-.lang-switcher-dropdown,
-.lang-switcher .lang-switcher-dropdown,
-div.lang-switcher-dropdown,
-.nav-cta-container .lang-switcher .lang-switcher-dropdown,
-.navbar .nav-cta-container .lang-switcher-dropdown {
-  position: absolute !important;
-  top: 100% !important;
-  /* Default LTR: align dropdown's left edge to switcher's left edge */
-  left: 0;
+html[dir="rtl"] .zappy-lang-switcher-container {
   right: auto;
-  margin-top: 6px;
-  min-width: 150px;
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: all 0.2s ease;
-  overflow: hidden;
-  z-index: 1002 !important;
+  left: 12px;
 }
 
-/* Ultra-high specificity override for problematic mobile responsive CSS */
-/* The problematic rule [style*="position: absolute"]:not():not():not() has specificity 0,4,0 */
-/* We need 0,5,0+ to win, so we add extra class/attribute selectors */
-.lang-switcher .lang-switcher-dropdown[style*="position: absolute"],
-.lang-switcher .lang-switcher-dropdown[style*="position:absolute"],
-.nav-cta-container .lang-switcher .lang-switcher-dropdown[style],
-.navbar .nav-cta-container .lang-switcher-dropdown[style],
-div.lang-switcher > div.lang-switcher-dropdown[style] {
-  position: absolute !important;
-  top: 100% !important;
-  /* Default LTR: align to left */
-  left: 0;
-  right: auto;
-}
-
-.lang-option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 12px 16px;
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  font-size: 14px;
-  color: #333;
-  transition: background 0.15s ease;
-}
-
-.lang-option{text-align: right;}
-
-/* RTL: align dropdown's right edge to switcher's right edge */
-.lang-switcher-dropdown,
-html[lang="he"] .lang-switcher-dropdown,
-html[lang="ar"] .lang-switcher-dropdown{right: 0;left: auto;}
-
-.lang-option:hover {
-  background: #f5f5f5;
-}
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-  /* Hide desktop lang-switcher on mobile - hamburger menu handles it */
-  /* High specificity needed to override stored CSS: .nav-cta-container .lang-switcher { display: flex !important } */
+ */
   .lang-switcher,
   .nav-cta-container .lang-switcher,
   .nav-container .lang-switcher,
@@ -10884,7 +10769,9 @@ html[lang="ar"] .lang-switcher-dropdown{right: 0;left: auto;}
     text-align: left;
   }
   
-  .mobile-lang-toggle{text-align: right;}
+  html[dir="rtl"] .mobile-lang-toggle {
+    text-align: right;
+  }
   
   .mobile-lang-chevron {
     margin-left: auto;
@@ -10892,7 +10779,10 @@ html[lang="ar"] .lang-switcher-dropdown{right: 0;left: auto;}
     flex-shrink: 0;
   }
   
-  .mobile-lang-chevron{margin-left: 0;margin-right: auto;}
+  html[dir="rtl"] .mobile-lang-chevron {
+    margin-left: 0;
+    margin-right: auto;
+  }
   
   .mobile-lang-options {
     display: none;
@@ -10921,7 +10811,10 @@ html[lang="ar"] .lang-switcher-dropdown{right: 0;left: auto;}
     transition: opacity 0.15s ease;
   }
   
-  .mobile-lang-option{text-align: right;padding: 12px 50px 12px 30px;}
+  html[dir="rtl"] .mobile-lang-option {
+    text-align: right;
+    padding: 12px 50px 12px 30px;
+  }
   
   .mobile-lang-option:hover,
   .mobile-lang-option:active {
@@ -10943,8 +10836,11 @@ html[lang="ar"] .lang-switcher-dropdown{right: 0;left: auto;}
 /* Prevent horizontal scroll on RTL pages */
 /* Using 'clip' instead of 'hidden' to avoid breaking position:sticky */
 /* 'hidden' causes overflow-y to compute as 'auto', creating a scroll container */
-,
-html[dir="rtl"] body{overflow-x: clip !important;max-width: 100vw !important;}
+html[dir="rtl"],
+html[dir="rtl"] body {
+  overflow-x: clip !important;
+  max-width: 100vw !important;
+}
 
 /* Ensure carousel containers clip overflow to prevent horizontal scroll */
 .zappy-carousel-container,
@@ -11034,14 +10930,17 @@ html[dir="rtl"] body{overflow-x: clip !important;max-width: 100vw !important;}
   }
   
   /* RTL mobile menu - also vertical layout */
-  .nav-menu,
+  html[dir="rtl"] .nav-menu,
   html[dir="rtl"] .nav-menu.active,
   html[dir="rtl"] #navMenu,
   html[dir="rtl"] #navMenu.active,
   html[lang="he"] .nav-menu,
   html[lang="he"] .nav-menu.active,
   html[lang="ar"] .nav-menu,
-  html[lang="ar"] .nav-menu.active{flex-direction: column !important;align-items: stretch !important;}
+  html[lang="ar"] .nav-menu.active {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
   
   /* LTR mobile menu text alignment - left aligned */
   html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .nav-menu li,
@@ -11070,26 +10969,41 @@ html[dir="rtl"] body{overflow-x: clip !important;max-width: 100vw !important;}
   }
   
   /* RTL: Center the logo/nav-brand in mobile navbar */
-  .nav-brand,
+  html[dir="rtl"] .nav-brand,
   html[lang="he"] .nav-brand,
-  html[lang="ar"] .nav-brand{order: 0 !important;margin: 0 auto !important;}
+  html[lang="ar"] .nav-brand {
+    order: 0 !important;
+    margin: 0 auto !important;
+  }
   
   /* RTL lang-switcher dropdown constraint */
-  .lang-switcher{position: relative;}
+  html[dir="rtl"] .lang-switcher {
+    position: relative;
+  }
   
-  .lang-switcher-dropdown{left: auto !important;right: 0 !important;max-width: calc(100vw - 20px);}
+  html[dir="rtl"] .lang-switcher-dropdown {
+    left: auto !important;
+    right: 0 !important;
+    max-width: calc(100vw - 20px);
+  }
   
   /* ===========================================
      RTL MOBILE NAV BUTTON POSITIONING
      In RTL: hamburger RIGHT, phone LEFT (mirror of LTR)
      =========================================== */
-  .mobile-toggle,
+  html[dir="rtl"] .mobile-toggle,
   html[lang="he"] .mobile-toggle,
-  html[lang="ar"] .mobile-toggle{left: auto !important;right: 20px !important;}
+  html[lang="ar"] .mobile-toggle {
+    left: auto !important;
+    right: 20px !important;
+  }
   
-  :not([data-zappy-site-type="ecommerce"]) .phone-header-btn,
+  html[dir="rtl"]:not([data-zappy-site-type="ecommerce"]) .phone-header-btn,
   html[lang="he"]:not([data-zappy-site-type="ecommerce"]) .phone-header-btn,
-  html[lang="ar"]:not([data-zappy-site-type="ecommerce"]) .phone-header-btn{left: 20px !important;right: auto !important;}
+  html[lang="ar"]:not([data-zappy-site-type="ecommerce"]) .phone-header-btn {
+    left: 20px !important;
+    right: auto !important;
+  }
 
   /* Explicitly hide phone button on e-commerce sites (cleaner than fighting with e-commerce CSS). */
   html[data-zappy-site-type="ecommerce"] .phone-header-btn {
@@ -11097,9 +11011,12 @@ html[dir="rtl"] body{overflow-x: clip !important;max-width: 100vw !important;}
   }
   
   /* RTL mobile menu slides from RIGHT */
-  .nav-menu,
+  html[dir="rtl"] .nav-menu,
   html[lang="he"] .nav-menu,
-  html[lang="ar"] .nav-menu{left: auto !important;right: 0 !important;}
+  html[lang="ar"] .nav-menu {
+    left: auto !important;
+    right: 0 !important;
+  }
   
   /* ===========================================
      MOBILE LANGUAGE SWITCHER
@@ -11151,11 +11068,12 @@ html[dir="rtl"] body{overflow-x: clip !important;max-width: 100vw !important;}
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
 /* High-specificity rules to ensure RTL positioning wins over any [lang="en"] conflicts */
 /* For RTL sites: hamburger on RIGHT, phone on LEFT (mirror of LTR layout) */
-/* NOTE: Includes both AND [dir="rtl"] selectors as fallback */
+/* NOTE: Includes both html[dir="rtl"] AND [dir="rtl"] selectors as fallback */
 /* because some pages may be wrapped with <html lang="en"> (missing dir="rtl" on html) */
 /* but still have dir="rtl" on <body> or other ancestor elements */
 
-@media (max-width: 768px){/* RTL Mobile Toggle (hamburger) - positioned on RIGHT */
+@media (max-width: 768px) {
+  /* RTL Mobile Toggle (hamburger) - positioned on RIGHT */
   /* Using multiple parent selectors for higher specificity */
   html[dir="rtl"] .navbar .mobile-toggle,
   html[dir="rtl"] nav .mobile-toggle,
@@ -11169,10 +11087,12 @@ html[dir="rtl"] body{overflow-x: clip !important;max-width: 100vw !important;}
   [dir="rtl"] .mobile-toggle,
   html[lang="he"] .mobile-toggle,
   html[lang="ar"] .mobile-toggle {
-    left: auto !important;right: 15px !important;}
+    left: auto !important;
+    right: 15px !important;
+  }
   
   /* RTL Phone Button - positioned on LEFT */
-  .navbar .phone-header-btn,
+  html[dir="rtl"] .navbar .phone-header-btn,
   html[dir="rtl"] nav .phone-header-btn,
   html[dir="rtl"] header .phone-header-btn,
   html[dir="rtl"] .nav-container .phone-header-btn,
@@ -11183,10 +11103,13 @@ html[dir="rtl"] body{overflow-x: clip !important;max-width: 100vw !important;}
   [dir="rtl"] .nav-container .phone-header-btn,
   [dir="rtl"] .phone-header-btn,
   html[lang="he"] .phone-header-btn,
-  html[lang="ar"] .phone-header-btn{left: 15px !important;right: auto !important;}
+  html[lang="ar"] .phone-header-btn {
+    left: 15px !important;
+    right: auto !important;
+  }
   
   /* RTL Mobile Menu - slides from RIGHT */
-  .navbar .nav-menu,
+  html[dir="rtl"] .navbar .nav-menu,
   html[dir="rtl"] nav .nav-menu,
   html[dir="rtl"] header .nav-menu,
   html[dir="rtl"] .nav-container .nav-menu,
@@ -11197,17 +11120,22 @@ html[dir="rtl"] body{overflow-x: clip !important;max-width: 100vw !important;}
   [dir="rtl"] .nav-container .nav-menu,
   [dir="rtl"] .nav-menu,
   html[lang="he"] .nav-menu,
-  html[lang="ar"] .nav-menu{left: auto !important;right: 0 !important;}
+  html[lang="ar"] .nav-menu {
+    left: auto !important;
+    right: 0 !important;
+  }
   
   /* RTL Mobile Menu Links - text align right */
-  .nav-menu a,
+  html[dir="rtl"] .nav-menu a,
   html[dir="rtl"] .nav-menu li,
   [dir="rtl"] .nav-menu a,
   [dir="rtl"] .nav-menu li,
   html[lang="he"] .nav-menu a,
   html[lang="he"] .nav-menu li,
   html[lang="ar"] .nav-menu a,
-  html[lang="ar"] .nav-menu li{text-align: right !important;}
+  html[lang="ar"] .nav-menu li {
+    text-align: right !important;
+  }
 }
 
 /* ========== END RTL MOBILE NAVBAR FIX ========== */
