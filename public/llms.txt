@@ -20,10 +20,6 @@ https://example.com/neighborhoods
 https://example.com/contact
 רוצים לרכוש, למכור או לקבל ייעוץ מסוכן נדלן לרוכשים בפעם הראשונה? צוות מאור נדלן 46 זמין עבורכם. השאירו פרטים ונחזור אליכם במהירות לתיאום פגישה ללא התחייבות!
 
-### Products
-https://example.com/products
-המוצרים שלנו - מאור נדלן 46
-
 ### Product Detail
 https://example.com/product/:slug
 פרטי המוצר - מאור נדלן 46
