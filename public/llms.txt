@@ -28,6 +28,10 @@ https://example.com/product/:slug
 https://example.com/category/:slug
 מוצרים - מאור נדלן 46
 
+### Products
+https://example.com/products
+המוצרים שלנו - מאור נדלן 46
+
 ## Legal & Policy
 
 ### Privacy Policy
