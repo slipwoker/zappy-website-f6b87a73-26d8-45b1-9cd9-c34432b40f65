@@ -3150,12 +3150,11 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
   max-width: none !important;
 }
 
-/* ── Cards Grid ── */
 .index-testimonials-section .its-cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
-  align-items: end;
+  align-items: start;
   margin-bottom: 52px;
   direction: rtl;
 }
@@ -3175,7 +3174,7 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
 }
 
 .index-testimonials-section .its-card--left {
-  margin-top: 24px;
+  margin-top: 0;
 }
 
 .index-testimonials-section .its-card--center {
@@ -3185,7 +3184,7 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
 }
 
 .index-testimonials-section .its-card--right {
-  margin-top: 36px;
+  margin-top: 0;
 }
 
 .index-testimonials-section .its-card-inner {
@@ -7285,6 +7284,40 @@ body.accessibility-widget-visible ._access-menu {
 
 
 
+
+/* Privacy consent checkbox — uses !important to override site form styles */
+.privacy-consent {
+  margin: 16px 0 !important;
+  font-size: 0.875rem !important;
+}
+.privacy-consent-label {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+  line-height: 1.4 !important;
+  flex-direction: row !important;
+}
+.privacy-consent-checkbox {
+  margin-top: 3px !important;
+  flex-shrink: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  cursor: pointer !important;
+  accent-color: currentColor;
+}
+.privacy-consent span {
+  flex: 1;
+}
+.privacy-consent a {
+  color: inherit !important;
+  text-decoration: underline !important;
+  font-weight: 600;
+}
+.privacy-consent a:hover {
+  opacity: 0.75;
+}
 
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
 /* High-specificity rules to ensure RTL positioning wins over any [lang="en"] conflicts */
