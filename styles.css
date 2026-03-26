@@ -7492,11 +7492,12 @@ body.accessibility-widget-visible ._access-menu {
 /* ========== GRID RESPONSIVE FIX (zappy-grid-mobile-fix) ========== */
 /* Ensures grids with explicit columns use CSS variable and are responsive on mobile */
 
-/* DESKTOP: Explicit column grids use CSS variable for grid-template-columns */
-/* This rule reads the --zappy-grid-cols CSS variable set in inline styles */
+/* DESKTOP: Ensure explicit-column grids stay as grid (prevent catch-all flex override) */
+/* grid-template-columns is intentionally NOT set here — the inline style on each */
+/* element already has the correct column count. Setting it via CSS variable with */
+/* !important would override the inline style when --zappy-grid-cols is unset. */
 [data-zappy-explicit-columns="true"] {
   display: grid !important;
-  grid-template-columns: var(--zappy-grid-cols, repeat(2, minmax(0, 1fr))) !important;
 }
 /* Carousel mode overrides grid display to allow flex-based track layout */
 .zappy-carousel-mode,
