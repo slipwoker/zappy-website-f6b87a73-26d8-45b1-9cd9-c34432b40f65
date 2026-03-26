@@ -1,55 +1,67 @@
-# Business — Generative Engine Optimization Map
+# מאור נדלן 46 — Generative Engine Optimization Map
+
+> תייצר לי אתר לסוכנות הנדלן שלי
 
 ---
 
 ## Pages
 
 ### בית
-https://example.com
+https://maor-nadlan-46.zappy5.app
 מאור נדלן 46 מלווה אתכם בכל שלב בדרך לנכס החלומות. סוכנות נדלן מקצועית עם ניסיון עשיר ברכישה, מכירה וייעוץ השקעה בנדלן למשקיעים. צרו קשר עוד היום!
 
 ### אודות
-https://example.com/about
+https://maor-nadlan-46.zappy5.app/about
 הכירו את הצוות שהפך חלומות נדלן למציאות. סוכן נדלן לרוכשים בפעם הראשונה עם גישה אישית, ידע מעמיק ומחויבות מלאה לכל לקוח. גלו מדוע אלפים בוחרים בנו!
 
 ### שכונות
-https://example.com/neighborhoods
+https://maor-nadlan-46.zappy5.app/neighborhoods
 סקירה מקיפה של השכונות המבוקשות ביותר, כולל דירות למבוגרים מצמצמים ואפשרויות ייעוץ השקעה בנדלן למשקיעים. מצאו את הסביבה המושלמת לחיים שתמיד רציתם!
 
 ### צור קשר
-https://example.com/contact
+https://maor-nadlan-46.zappy5.app/contact
 רוצים לרכוש, למכור או לקבל ייעוץ מסוכן נדלן לרוכשים בפעם הראשונה? צוות מאור נדלן 46 זמין עבורכם. השאירו פרטים ונחזור אליכם במהירות לתיאום פגישה ללא התחייבות!
 
 ### Product Detail
-https://example.com/product/:slug
+https://maor-nadlan-46.zappy5.app/product/:slug
 פרטי המוצר - מאור נדלן 46
 
 ### Category
-https://example.com/category/:slug
+https://maor-nadlan-46.zappy5.app/category/:slug
 מוצרים - מאור נדלן 46
 
 ## Legal & Policy
 
 ### Privacy Policy
-https://example.com/privacy
+https://maor-nadlan-46.zappy5.app/privacy
 Information about how user data is collected, stored, and protected.
 
 ### Terms & Conditions
-https://example.com/terms
+https://maor-nadlan-46.zappy5.app/terms
 Legal terms describing service usage, rights, and policies.
 
 ### Accessibility Statement
-https://example.com/accessibility
+https://maor-nadlan-46.zappy5.app/accessibility
 Information about WCAG compliance and accessibility features.
 
 ---
 
 # Business Context (for LLM understanding)
 
-## About Business
+## About מאור נדלן 46
+תייצר לי אתר לסוכנות הנדלן שלי
+
+## Target Audience
+- רוכשי דירה בפעם הראשונה
+- משקיעי נדל"ן
+- מבוגרים מצמצמים
+
+## Industry
+נדל"ן
+
 ---
 
 # Additional Resources
 
-- **Sitemap**: https://example.com/sitemap.xml
-- **Robots.txt**: https://example.com/robots.txt
+- **Sitemap**: https://maor-nadlan-46.zappy5.app/sitemap.xml
+- **Robots.txt**: https://maor-nadlan-46.zappy5.app/robots.txt
