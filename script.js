@@ -694,132 +694,182 @@ window.onload = function() {
 
 /* ZAPPY_SITE_SEARCH — JS */
 (function() {
-  var idx = null;
-  var overlay = document.getElementById("zappy-search-overlay");
-  var input = document.getElementById("zappy-search-input");
-  var resultsEl = document.getElementById("zappy-search-results");
-  if (!overlay || !input || !resultsEl) return;
-  var activeIdx = -1;
-  var debounceTimer = null;
+  function initSearch() {
+    var container = document.getElementById("zappy-search-container");
+    var input = document.getElementById("zappy-search-input");
+    var resultsEl = document.getElementById("zappy-search-results");
+    if (!container || !input || !resultsEl) return;
+    if (container.getAttribute("data-search-init")) return;
+    container.setAttribute("data-search-init", "1");
+    var idx = null;
+    var activeIdx = -1;
+    var debounceTimer = null;
 
-  function openSearch() {
-    overlay.style.display = "flex";
-    input.value = "";
-    resultsEl.innerHTML = "";
-    activeIdx = -1;
-    setTimeout(function() { input.focus(); }, 60);
-    document.body.style.overflow = "hidden";
-  }
-  function closeSearch() {
-    overlay.style.display = "none";
-    document.body.style.overflow = "";
-  }
-
-  document.querySelectorAll("[data-zappy-search-trigger]").forEach(function(btn) {
-    btn.addEventListener("click", function(e) { e.preventDefault(); openSearch(); });
-  });
-  overlay.addEventListener("click", function(e) { if (e.target === overlay) closeSearch(); });
-  overlay.querySelector(".zappy-search-close").addEventListener("click", closeSearch);
-
-  document.addEventListener("keydown", function(e) {
-    if ((e.ctrlKey || e.metaKey) && e.key === "k") { e.preventDefault(); openSearch(); }
-    if (e.key === "Escape" && overlay.style.display === "flex") closeSearch();
-  });
-
-  function loadIndex(cb) {
-    if (idx) return cb(idx);
-    var base = document.querySelector("base");
-    var prefix = base ? base.getAttribute("href") : "/";
-    if (prefix && !prefix.endsWith("/")) prefix += "/";
-    var url = (prefix || "/") + "assets/search-index.json";
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.onload = function() {
-      if (xhr.status === 200) { try { idx = JSON.parse(xhr.responseText); } catch(e) { idx = []; } }
-      else { idx = []; }
-      cb(idx);
-    };
-    xhr.onerror = function() { idx = []; cb(idx); };
-    xhr.send();
-  }
-
-  function search(query, data) {
-    if (!query || query.length < 2) return [];
-    var tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
-    var scored = [];
-    for (var i = 0; i < data.length; i++) {
-      var entry = data[i];
-      var score = 0;
-      var titleLow = (entry.title || "").toLowerCase();
-      var headingsLow = (entry.headings || []).join(" ").toLowerCase();
-      var contentLow = (entry.content || "").toLowerCase();
-      for (var t = 0; t < tokens.length; t++) {
-        var tok = tokens[t];
-        if (titleLow.indexOf(tok) !== -1) score += 10;
-        if (headingsLow.indexOf(tok) !== -1) score += 5;
-        if (contentLow.indexOf(tok) !== -1) score += 1;
+    var trigger = container.querySelector("[data-zappy-search-trigger]");
+    if (trigger) {
+      var navParent = container.closest("nav, .navbar, header");
+      if (navParent) {
+        var sampleLink = navParent.querySelector("a:not(.btn):not([class*=cta]):not([class*=contact])");
+        if (sampleLink) {
+          var linkColor = window.getComputedStyle(sampleLink).color;
+          trigger.style.color = linkColor;
+          container.style.color = linkColor;
+        }
       }
-      if (score > 0) scored.push({ entry: entry, score: score });
     }
-    scored.sort(function(a, b) { return b.score - a.score; });
-    return scored.slice(0, 12);
-  }
 
-  function escapeRe(s) {
-    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-  }
-  function highlight(text, query) {
-    if (!text || !query) return text || "";
-    var tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
-    var result = text;
-    for (var i = 0; i < tokens.length; i++) {
-      var re = new RegExp("(" + escapeRe(tokens[i]) + ")", "gi");
-      result = result.replace(re, '<span class="zappy-search-highlight">$1</span>');
+    function openSearch() {
+      container.classList.add("zappy-search-open");
+      input.value = "";
+      resultsEl.innerHTML = "";
+      container.classList.remove("zappy-search-has-results");
+      activeIdx = -1;
+      setTimeout(function() { input.focus(); }, 80);
     }
-    return result;
-  }
+    function closeSearch() {
+      container.classList.remove("zappy-search-open", "zappy-search-has-results");
+      input.value = "";
+      resultsEl.innerHTML = "";
+      activeIdx = -1;
+    }
 
-  function renderResults(results, query) {
-    activeIdx = -1;
-    if (results.length === 0) {
-      resultsEl.innerHTML = '<div class="zappy-search-empty">No results found</div>';
-      return;
+    if (trigger) {
+      trigger.addEventListener("click", function(e) {
+        e.preventDefault(); e.stopPropagation(); openSearch();
+      }, true);
     }
-    var html = "";
-    for (var i = 0; i < results.length; i++) {
-      var r = results[i].entry;
-      var href = r.page + (r.anchor ? "#" + r.anchor : "");
-      var snippet = (r.content || "").substring(0, 120);
-      html += '<a class="zappy-search-result-item" href="' + href + '" data-ridx="' + i + '">';
-      html += '<div class="zappy-search-result-title">' + highlight(r.title || r.anchor, query) + "</div>";
-      if (snippet) html += '<div class="zappy-search-result-snippet">' + highlight(snippet, query) + "</div>";
-      if (r.pageTitle && r.page !== "/") html += '<div class="zappy-search-result-page">' + r.pageTitle + "</div>";
-      html += "</a>";
+    var closeBtn = container.querySelector(".zappy-search-close");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function(e) {
+        e.preventDefault(); e.stopPropagation(); closeSearch();
+      }, true);
     }
-    resultsEl.innerHTML = html;
-    resultsEl.querySelectorAll(".zappy-search-result-item").forEach(function(el) {
-      el.addEventListener("click", function(e) { e.preventDefault(); closeSearch(); window.location.href = el.getAttribute("href"); });
+
+    document.addEventListener("click", function(e) {
+      if (container.classList.contains("zappy-search-open") && !container.contains(e.target)) {
+        closeSearch();
+      }
+    });
+    document.addEventListener("keydown", function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") { e.preventDefault(); openSearch(); }
+      if (e.key === "Escape" && container.classList.contains("zappy-search-open")) closeSearch();
+    });
+
+    function loadIndex(cb) {
+      if (idx) return cb(idx);
+      var base = document.querySelector("base");
+      var prefix = base ? base.getAttribute("href") : "/";
+      if (prefix && !prefix.endsWith("/")) prefix += "/";
+      var url = (prefix || "/") + "assets/search-index.json";
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onload = function() {
+        if (xhr.status === 200) { try { idx = JSON.parse(xhr.responseText); } catch(e) { idx = []; } }
+        else { idx = []; }
+        cb(idx);
+      };
+      xhr.onerror = function() { idx = []; cb(idx); };
+      xhr.send();
+    }
+
+    function search(query, data) {
+      if (!query || query.length < 2) return [];
+      var tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
+      var scored = [];
+      for (var i = 0; i < data.length; i++) {
+        var entry = data[i];
+        var score = 0;
+        var titleLow = (entry.title || "").toLowerCase();
+        var headingsLow = (entry.headings || []).join(" ").toLowerCase();
+        var contentLow = (entry.content || "").toLowerCase();
+        for (var t = 0; t < tokens.length; t++) {
+          var tok = tokens[t];
+          if (titleLow.indexOf(tok) !== -1) score += 10;
+          if (headingsLow.indexOf(tok) !== -1) score += 5;
+          if (contentLow.indexOf(tok) !== -1) score += 1;
+        }
+        if (score > 0) scored.push({ entry: entry, score: score });
+      }
+      scored.sort(function(a, b) { return b.score - a.score; });
+      return scored.slice(0, 10);
+    }
+
+    function escapeRe(s) {
+      return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, function(m) { return "\\" + m; });
+    }
+    function highlight(text, query) {
+      if (!text || !query) return text || "";
+      var tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
+      var result = text;
+      for (var i = 0; i < tokens.length; i++) {
+        var re = new RegExp("(" + escapeRe(tokens[i]) + ")", "gi");
+        result = result.replace(re, function(match, p1) {
+          return '<span class="zappy-search-highlight">' + p1 + '</span>';
+        });
+      }
+      return result;
+    }
+
+    function renderResults(results, query) {
+      activeIdx = -1;
+      if (results.length === 0 && input.value.trim().length >= 2) {
+        resultsEl.innerHTML = '<div class="zappy-search-empty">No results found</div>';
+        container.classList.add("zappy-search-has-results");
+        return;
+      }
+      if (results.length === 0) {
+        resultsEl.innerHTML = "";
+        container.classList.remove("zappy-search-has-results");
+        return;
+      }
+      var html = "";
+      for (var i = 0; i < results.length; i++) {
+        var r = results[i].entry;
+        var href = r.page + (r.anchor ? "#" + r.anchor : "");
+        var snippet = (r.content || "").substring(0, 120);
+        html += '<a class="zappy-search-result-item" href="' + href + '" data-ridx="' + i + '">';
+        html += '<div class="zappy-search-result-title">' + highlight(r.title || r.anchor, query) + "</div>";
+        if (snippet) html += '<div class="zappy-search-result-snippet">' + highlight(snippet, query) + "</div>";
+        if (r.pageTitle && r.page !== "/") html += '<div class="zappy-search-result-page">' + r.pageTitle + "</div>";
+        html += "</a>";
+      }
+      resultsEl.innerHTML = html;
+      container.classList.add("zappy-search-has-results");
+      resultsEl.querySelectorAll(".zappy-search-result-item").forEach(function(el) {
+        el.addEventListener("click", function(e) {
+          e.preventDefault(); closeSearch(); window.location.href = el.getAttribute("href");
+        });
+      });
+    }
+
+    input.addEventListener("input", function() {
+      clearTimeout(debounceTimer);
+      var q = input.value.trim();
+      if (q.length < 2) {
+        resultsEl.innerHTML = "";
+        container.classList.remove("zappy-search-has-results");
+        return;
+      }
+      debounceTimer = setTimeout(function() {
+        loadIndex(function(data) { renderResults(search(q, data), q); });
+      }, 200);
+    });
+
+    input.addEventListener("keydown", function(e) {
+      var items = resultsEl.querySelectorAll(".zappy-search-result-item");
+      if (!items.length) return;
+      if (e.key === "ArrowDown") { e.preventDefault(); activeIdx = Math.min(activeIdx + 1, items.length - 1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); activeIdx = Math.max(activeIdx - 1, 0); }
+      else if (e.key === "Enter" && activeIdx >= 0) { e.preventDefault(); items[activeIdx].click(); return; }
+      else return;
+      items.forEach(function(el, i) { el.classList.toggle("zappy-search-active", i === activeIdx); });
+      if (items[activeIdx]) items[activeIdx].scrollIntoView({ block: "nearest" });
     });
   }
-
-  input.addEventListener("input", function() {
-    clearTimeout(debounceTimer);
-    var q = input.value.trim();
-    debounceTimer = setTimeout(function() {
-      loadIndex(function(data) { renderResults(search(q, data), q); });
-    }, 200);
-  });
-
-  input.addEventListener("keydown", function(e) {
-    var items = resultsEl.querySelectorAll(".zappy-search-result-item");
-    if (!items.length) return;
-    if (e.key === "ArrowDown") { e.preventDefault(); activeIdx = Math.min(activeIdx + 1, items.length - 1); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); activeIdx = Math.max(activeIdx - 1, 0); }
-    else if (e.key === "Enter" && activeIdx >= 0) { e.preventDefault(); items[activeIdx].click(); return; }
-    else return;
-    items.forEach(function(el, i) { el.classList.toggle("zappy-search-active", i === activeIdx); });
-    if (items[activeIdx]) items[activeIdx].scrollIntoView({ block: "nearest" });
-  });
+  initSearch();
+  if (document.readyState !== "complete") {
+    window.addEventListener("load", initSearch);
+  }
 })();
 
 

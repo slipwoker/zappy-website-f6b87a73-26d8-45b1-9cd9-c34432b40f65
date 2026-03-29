@@ -348,10 +348,18 @@
   
 
     
-  <li><a href="/about">אודות</a></li><li><a href="/neighborhoods">שכונות</a></li></ul>
-<button class="zappy-search-trigger" aria-label="Search" data-zappy-search-trigger="">
-  <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-</button><div class="nav-cta-container"><li class="nav-cta-item"><a href="/contact" class="nav-cta-btn">צור קשר</a></li></div></div>
+  <li><a href="/about">אודות</a></li><li><a href="/neighborhoods">שכונות</a></li></ul><div class="zappy-search-container" id="zappy-search-container">
+  <button class="zappy-search-trigger" data-zappy-search-trigger="" aria-label="Search">
+    <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+  </button>
+  <div class="zappy-search-expanded">
+    <svg class="zappy-search-exp-icon" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+    <input type="text" id="zappy-search-input" class="zappy-search-input" placeholder="Search..." autocomplete="off"></input>
+    <button class="zappy-search-close" aria-label="Close search">×</button>
+  </div>
+  <div id="zappy-search-results" class="zappy-search-results"></div>
+</div>
+<div class="nav-cta-container"><li class="nav-cta-item"><a href="/contact" class="nav-cta-btn">צור קשר</a></li></div></div>
 
     
 
@@ -407,11 +415,11 @@
           </footer>
   
   <script>
-  &lt;!-- Search handling for e-commerce pages --&gt;
+  &amp;lt;!-- Search handling for e-commerce pages --&amp;gt;
   (function() {
     // Unified search function that works in both preview and deployed modes
     function performSearch(query) {
-      if (query.length &lt; 2) return;
+      if (query.length &amp;lt; 2) return;
       
       // Check if we're in preview mode (URL contains preview-fullscreen)
       var isPreview = window.location.pathname.includes('preview-fullscreen');
@@ -446,7 +454,7 @@
     var searchToggle = document.querySelector('.nav-search-toggle');
     
     // Open mobile search panel
-    if (searchToggle &amp;&amp; mobileSearchPanel) {
+    if (searchToggle &amp;amp;&amp;amp; mobileSearchPanel) {
       searchToggle.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -458,7 +466,7 @@
     }
     
     // Close mobile search panel
-    if (closeMobileSearch &amp;&amp; mobileSearchPanel) {
+    if (closeMobileSearch &amp;amp;&amp;amp; mobileSearchPanel) {
       closeMobileSearch.addEventListener('click', function() {
         mobileSearchPanel.classList.remove('active');
         if (mobileSearchInput) mobileSearchInput.value = '';
@@ -486,16 +494,7 @@
   })();
   </script>
 
-<div id="zappy-search-overlay" class="zappy-search-overlay" style="display:none;" role="dialog" aria-modal="true" aria-label="Site search">
-  <div class="zappy-search-dialog">
-    <div class="zappy-search-input-wrap">
-      <svg class="zappy-search-input-icon" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-      <input type="text" id="zappy-search-input" class="zappy-search-input" placeholder="חיפוש..." autocomplete="off"></input>
-      <button class="zappy-search-close" aria-label="Close search">&amp;times;</button>
-    </div>
-    <div id="zappy-search-results" class="zappy-search-results"></div>
-  </div>
-</div>
+
     <script src="/script.js"></script>
 
     <script id="zappy-mobile-submenu-script">

@@ -364,10 +364,18 @@
   
 
     
-  <li><a href="/about">אודות</a></li><li><a href="/neighborhoods">שכונות</a></li></ul>
-<button class="zappy-search-trigger" aria-label="Search" data-zappy-search-trigger="">
-  <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-</button><div class="nav-cta-container"><li class="nav-cta-item"><a href="/contact" class="nav-cta-btn">צור קשר</a></li></div></div>
+  <li><a href="/about">אודות</a></li><li><a href="/neighborhoods">שכונות</a></li></ul><div class="zappy-search-container" id="zappy-search-container">
+  <button class="zappy-search-trigger" data-zappy-search-trigger="" aria-label="Search">
+    <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+  </button>
+  <div class="zappy-search-expanded">
+    <svg class="zappy-search-exp-icon" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+    <input type="text" id="zappy-search-input" class="zappy-search-input" placeholder="Search..." autocomplete="off"></input>
+    <button class="zappy-search-close" aria-label="Close search">×</button>
+  </div>
+  <div id="zappy-search-results" class="zappy-search-results"></div>
+</div>
+<div class="nav-cta-container"><li class="nav-cta-item"><a href="/contact" class="nav-cta-btn">צור קשר</a></li></div></div>
 
     
 
@@ -416,12 +424,12 @@
     // Check if background is transparent or rgba with 0 alpha
     const isTransparent = bgColor === 'transparent' || 
                          bgColor === 'rgba(0, 0, 0, 0)' ||
-                         (bgColor.startsWith('rgba') &amp;&amp; bgColor.includes(', 0)'));
+                         (bgColor.startsWith('rgba') &amp;amp;&amp;amp; bgColor.includes(', 0)'));
     
     if (isTransparent) {
       // Check for background-image or gradient
       const bgImage = computedStyle.backgroundImage;
-      if (bgImage &amp;&amp; bgImage !== 'none') {
+      if (bgImage &amp;amp;&amp;amp; bgImage !== 'none') {
         console.log('[Navbar] Navbar has background image/gradient, using dark text');
         bgColor = 'rgb(240, 240, 240)'; // Assume light background
       } else {
@@ -434,7 +442,7 @@
     
     // Calculate luminance to determine if background is light or dark
     const rgb = bgColor.match(/\d+/g);
-    if (rgb &amp;&amp; rgb.length &gt;= 3) {
+    if (rgb &amp;amp;&amp;amp; rgb.length &amp;gt;= 3) {
       const r = parseInt(rgb[0]);
       const g = parseInt(rgb[1]);
       const b = parseInt(rgb[2]);
@@ -570,7 +578,7 @@
       // ONLY apply inline positioning styles on mobile viewport
       // On desktop, the CSS handles hiding these buttons with display: none
       // Inline styles were breaking desktop layout by overriding CSS
-      const isMobileViewport = window.innerWidth &lt;= 768;
+      const isMobileViewport = window.innerWidth &amp;lt;= 768;
       
       if (mobileToggle) {
         // Icon sizing applies to all viewports for consistency
@@ -761,7 +769,7 @@
       phoneBtn.addEventListener('click', function() {
         // Get phone number from placeholder in page or use default
         const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
-        const phoneNumber = phoneLinks.length &gt; 0 
+        const phoneNumber = phoneLinks.length &amp;gt; 0 
           ? phoneLinks[0].getAttribute('href').replace('tel:', '')
           : '[business_phone]';
         
@@ -778,7 +786,7 @@
     const handleWhatsAppVisibility = function() {
       const whatsappBtn = document.querySelector('.whatsapp-float');
       if (whatsappBtn) {
-        const isDesktop = window.innerWidth &gt;= 769;
+        const isDesktop = window.innerWidth &amp;gt;= 769;
         if (isDesktop) {
           whatsappBtn.style.setProperty('display', 'none', 'important');
           whatsappBtn.style.setProperty('visibility', 'hidden', 'important');
@@ -858,7 +866,7 @@
     <span>קראתי ואני מסכים/ה ל<a href="/terms" target="_blank">תנאי השימוש</a> ול<a href="/privacy" target="_blank">מדיניות הפרטיות</a></span>
   </label>
 </div>
-<script data-privacy-consent-validation="">(function(){if(window._zpcv)return;window._zpcv=1;document.addEventListener("submit",function(e){var f=e.target;if(!f||f.tagName!=="FORM")return;var cb=f.querySelector(".privacy-consent-checkbox");if(!cb||cb.checked)return;e.preventDefault();e.stopImmediatePropagation();var isHe=document.documentElement.lang==="he"||document.documentElement.dir==="rtl";var msg=isHe?"יש לאשר את תנאי השימוש ומדיניות הפרטיות כדי להמשיך":"Please accept the Terms &amp; Conditions and Privacy Policy to continue";if(typeof window.zappyNotify==="function"){window.zappyNotify(msg,"error")}else if(typeof window.showNotification==="function"){window.showNotification(msg,"error")}else{var ex=document.querySelectorAll(".zappy-privacy-error");ex.forEach(function(el){el.remove()});var n=document.createElement("div");n.className="zappy-privacy-error";n.style.cssText="position:fixed;top:20px;right:20px;max-width:400px;padding:14px 18px;background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:10000;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px";n.textContent=msg;document.body.appendChild(n);setTimeout(function(){if(n.parentElement)n.remove()},6000)}cb.focus()},true)})();</script>
+<script data-privacy-consent-validation="">(function(){if(window._zpcv)return;window._zpcv=1;document.addEventListener("submit",function(e){var f=e.target;if(!f||f.tagName!=="FORM")return;var cb=f.querySelector(".privacy-consent-checkbox");if(!cb||cb.checked)return;e.preventDefault();e.stopImmediatePropagation();var isHe=document.documentElement.lang==="he"||document.documentElement.dir==="rtl";var msg=isHe?"יש לאשר את תנאי השימוש ומדיניות הפרטיות כדי להמשיך":"Please accept the Terms &amp;amp; Conditions and Privacy Policy to continue";if(typeof window.zappyNotify==="function"){window.zappyNotify(msg,"error")}else if(typeof window.showNotification==="function"){window.showNotification(msg,"error")}else{var ex=document.querySelectorAll(".zappy-privacy-error");ex.forEach(function(el){el.remove()});var n=document.createElement("div");n.className="zappy-privacy-error";n.style.cssText="position:fixed;top:20px;right:20px;max-width:400px;padding:14px 18px;background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:10000;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px";n.textContent=msg;document.body.appendChild(n);setTimeout(function(){if(n.parentElement)n.remove()},6000)}cb.focus()},true)})();</script>
 <button type="submit" class="btn-primary contact-submit">שלחו הודעה <i class="fas fa-arrow-left" aria-hidden="true"></i></button>
       </form>
     </div>
@@ -960,7 +968,7 @@
     <!-- Text Column (END = LEFT in RTL) -->
     <div class="contact-visit-text-col">
       <span class="contact-visit-eyebrow">פגישה ראשונה</span>
-      <h2 class="contact-visit-heading">שיחה אישית,<br></br>מושכלת ומכוונת</h2>
+      <h2 class="contact-visit-heading">שיחה אישית,<br></br><br></br>מושכלת ומכוונת</h2>
       <div class="contact-visit-divider"></div>
       <p class="contact-visit-body">אנחנו מאמינים שכל תהליך נדל"ן מצליח מתחיל בהקשבה אמיתית. הפגישה הראשונה שלנו מוקדשת להבנת המטרות שלך — האם אתה רוכש דירה ראשונה, משקיע מנוסה המחפש ייעוץ השקעה בנדל"ן, או מבוגר המעוניין לצמצם ולעבור לסביבה מתאימה יותר. אין לחץ, אין מצגות מכירה — רק שיחה פתוחה ומקצועית.</p>
       <p class="contact-visit-body">במהלך הפגישה נבין יחד את ההקשר שלך, את ציר הזמן הרצוי ואת הסביבה שמתאימה לך ביותר. הידע שלנו על השכונות, השוק והתהליך המשפטי עומד לרשותך — כך שתוכל לקבל החלטות בביטחון ובשקט נפשי.</p>
@@ -991,16 +999,7 @@
   
   <div data-integration="accessibility:toolbar"></div>
 
-<div id="zappy-search-overlay" class="zappy-search-overlay" style="display:none;" role="dialog" aria-modal="true" aria-label="Site search">
-  <div class="zappy-search-dialog">
-    <div class="zappy-search-input-wrap">
-      <svg class="zappy-search-input-icon" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-      <input type="text" id="zappy-search-input" class="zappy-search-input" placeholder="חיפוש..." autocomplete="off"></input>
-      <button class="zappy-search-close" aria-label="Close search">&amp;times;</button>
-    </div>
-    <div id="zappy-search-results" class="zappy-search-results"></div>
-  </div>
-</div>
+
     <script src="/script.js"></script>
 
     <script id="zappy-mobile-submenu-script">
