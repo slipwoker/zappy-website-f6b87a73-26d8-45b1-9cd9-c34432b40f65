@@ -7544,6 +7544,7 @@ body.accessibility-widget-visible ._access-menu {
   .zappy-search-mobile-trigger { display: none !important; }
   .zappy-search-mobile-bar { display: none !important; }
 }
+/* ZAPPY_SITE_SEARCH — CSS_END */
 
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
 /* High-specificity rules to ensure RTL positioning wins over any [lang="en"] conflicts */
