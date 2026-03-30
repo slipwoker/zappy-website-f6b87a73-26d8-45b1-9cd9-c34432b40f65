@@ -7434,17 +7434,115 @@ body.accessibility-widget-visible ._access-menu {
 }
 .zappy-search-empty { text-align: center; padding: 24px 16px; color: var(--text-muted, #999); font-size: 0.9rem; }
 
-@media (max-width: 600px) {
-  .zappy-search-results {
-    position: fixed;
-    top: 60px;
-    left: 4%;
-    right: 4%;
-    min-width: auto;
-    max-width: none;
-    max-height: 70vh;
+/* --- Mobile search --- */
+.zappy-search-mobile-trigger { display: none; }
+.zappy-search-mobile-bar { display: none; }
+
+@media (max-width: 768px) {
+  .zappy-search-container { display: none !important; }
+
+  .zappy-search-mobile-trigger {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: var(--nav-text, var(--text-dark, #1a1a1a));
+    pointer-events: auto !important;
+    z-index: 1001 !important;
+    padding: 8px;
+    transition: background-color 0.2s;
+    position: absolute !important;
+    top: 50%;
+    transform: translateY(-50%);
   }
-  .zappy-search-input { width: 140px; }
+  html[dir="rtl"] .zappy-search-mobile-trigger,
+  html[lang="he"] .zappy-search-mobile-trigger,
+  html[lang="ar"] .zappy-search-mobile-trigger {
+    left: 56px !important; right: auto !important;
+  }
+  html[dir="ltr"] .zappy-search-mobile-trigger,
+  html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .zappy-search-mobile-trigger {
+    right: 56px !important; left: auto !important;
+  }
+  .zappy-search-mobile-trigger svg {
+    width: 20px; height: 20px;
+    stroke: currentColor;
+  }
+  .zappy-search-mobile-trigger:hover { background-color: rgba(128,128,128,0.15); }
+
+  .zappy-search-mobile-bar {
+    display: none;
+    position: fixed;
+    top: var(--total-header-height, var(--header-height, 60px));
+    left: 0; right: 0;
+    background: var(--surface, #fff);
+    z-index: 1002;
+    padding: 12px 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    border-bottom: 1px solid var(--border, #e5e5e5);
+    animation: zappy-mobile-bar-slide 0.2s ease;
+  }
+  @keyframes zappy-mobile-bar-slide {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .zappy-search-mobile-bar.zappy-mobile-open { display: block !important; }
+
+  .zappy-search-mobile-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .zappy-search-mobile-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 8px;
+    font-size: 16px;
+    background: var(--bg-light, #f5f5f5);
+    color: var(--text-dark, #333);
+    font-family: inherit;
+    outline: none;
+    min-width: 0;
+  }
+  .zappy-search-mobile-input:focus { border-color: var(--accent, #e8683a); }
+  .zappy-search-mobile-input::placeholder { color: var(--text-muted, #999); }
+  .zappy-search-mobile-close {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 50%;
+    border: none; cursor: pointer;
+    background: transparent; color: var(--text-dark, #333);
+    flex-shrink: 0; padding: 0;
+  }
+  .zappy-search-mobile-close:hover { background: rgba(128,128,128,0.1); }
+
+  .zappy-search-mobile-results {
+    display: none;
+    margin-top: 8px;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+  .zappy-search-mobile-bar.zappy-mobile-has-results .zappy-search-mobile-results { display: block; }
+
+  .zappy-search-mobile-results .zappy-search-result-item {
+    display: block;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm, 6px);
+    cursor: pointer;
+    transition: background 0.15s;
+    color: var(--text-dark, #333);
+  }
+  .zappy-search-mobile-results .zappy-search-result-item:hover { background: var(--bg-light, #f5f5f5); }
+}
+
+@media (min-width: 769px) {
+  .zappy-search-mobile-trigger { display: none !important; }
+  .zappy-search-mobile-bar { display: none !important; }
 }
 
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
