@@ -1192,32 +1192,58 @@
         document.querySelectorAll('[data-zappy-zoom-wrapper="true"]').forEach(function(w){
           var cw=w.style.getPropertyValue('width');
           if(!cw||cw==='100%')return;
+          var img=w.querySelector('img');
+          var mobileZoom=img?parseFloat(img.getAttribute('data-zappy-mobile-zoom')):NaN;
+          var mobileSrc=img?img.getAttribute('data-zappy-mobile-src'):null;
+          var mobilePos=img?img.getAttribute('data-zappy-mobile-object-position'):null;
           w.style.setProperty('width','100%','important');
           w.style.setProperty('max-width','100%','important');
-          w.style.setProperty('height','auto','important');
-          var img=w.querySelector('img');
           if(img){
-            var mobileSrc=img.getAttribute('data-zappy-mobile-src');
-            var mobilePos=img.getAttribute('data-zappy-mobile-object-position');
             if(mobileSrc)img.src=mobileSrc;
-            img.style.setProperty('position','relative','important');
-            img.style.setProperty('width','100%','important');
-            img.style.setProperty('height','auto','important');
-            img.style.setProperty('max-width','100%','important');
-            img.style.setProperty('max-height','400px','important');
-            img.style.setProperty('object-fit','cover','important');
-            img.style.setProperty('left','0','important');
-            img.style.setProperty('top','0','important');
-            if(mobilePos)img.style.setProperty('object-position',mobilePos,'important');
+            var pos=mobilePos||img.style.getPropertyValue('object-position')||'50% 50%';
+            if(mobileZoom>1){
+              var wH=w.getAttribute('data-zappy-zoom-wrapper-height');
+              w.style.setProperty('height',wH||'200px','important');
+              img.style.setProperty('position','relative','important');
+              img.style.setProperty('width','100%','important');
+              img.style.setProperty('height','auto','important');
+              img.style.setProperty('min-height','100%','important');
+              img.style.setProperty('max-width','none','important');
+              img.style.setProperty('max-height','none','important');
+              img.style.setProperty('object-fit','cover','important');
+              img.style.setProperty('left','0','important');
+              img.style.setProperty('top','0','important');
+              img.style.setProperty('object-position',pos,'important');
+              img.style.setProperty('transform','scale('+mobileZoom+')','important');
+              img.style.setProperty('transform-origin',pos,'important');
+            }else{
+              w.style.setProperty('height','auto','important');
+              img.style.setProperty('position','relative','important');
+              img.style.setProperty('width','100%','important');
+              img.style.setProperty('height','auto','important');
+              img.style.setProperty('max-width','100%','important');
+              img.style.setProperty('max-height','400px','important');
+              img.style.setProperty('object-fit','cover','important');
+              img.style.setProperty('left','0','important');
+              img.style.setProperty('top','0','important');
+              img.style.setProperty('transform','none','important');
+              if(mobilePos)img.style.setProperty('object-position',mobilePos,'important');
+            }
           }
         });
-        // Also handle images outside zoom wrappers that have mobile overrides
-        document.querySelectorAll('img[data-zappy-mobile-src],img[data-zappy-mobile-object-position]').forEach(function(img){
+        document.querySelectorAll('img[data-zappy-mobile-src],img[data-zappy-mobile-object-position],img[data-zappy-mobile-zoom]').forEach(function(img){
           if(img.closest('[data-zappy-zoom-wrapper="true"]'))return;
           var mobileSrc=img.getAttribute('data-zappy-mobile-src');
           var mobilePos=img.getAttribute('data-zappy-mobile-object-position');
+          var mobileZoom=parseFloat(img.getAttribute('data-zappy-mobile-zoom'));
           if(mobileSrc)img.src=mobileSrc;
           if(mobilePos)img.style.setProperty('object-position',mobilePos,'important');
+          if(mobileZoom>1){
+            img.style.setProperty('transform','scale('+mobileZoom+')','important');
+            img.style.setProperty('transform-origin',mobilePos||'50% 50%','important');
+            var p=img.parentElement;
+            if(p)p.style.setProperty('overflow','hidden','important');
+          }
         });
       }
       if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fixZW);
