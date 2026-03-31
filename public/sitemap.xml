@@ -19,12 +19,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://maor-nadlan-46.zappy5.app/contact</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://maor-nadlan-46.zappy5.app/product/:slug</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -34,6 +28,18 @@
     <loc>https://maor-nadlan-46.zappy5.app/category/:slug</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://maor-nadlan-46.zappy5.app/external-link-1774933647450</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://maor-nadlan-46.zappy5.app/contact</loc>
+    <lastmod>2026-03-31</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
