@@ -813,12 +813,12 @@
     // Check if background is transparent or rgba with 0 alpha
     const isTransparent = bgColor === 'transparent' || 
                          bgColor === 'rgba(0, 0, 0, 0)' ||
-                         (bgColor.startsWith('rgba') &amp;&amp; bgColor.includes(', 0)'));
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
     
     if (isTransparent) {
       // Check for background-image or gradient
       const bgImage = computedStyle.backgroundImage;
-      if (bgImage &amp;&amp; bgImage !== 'none') {
+      if (bgImage && bgImage !== 'none') {
         console.log('[Navbar] Navbar has background image/gradient, using dark text');
         bgColor = 'rgb(240, 240, 240)'; // Assume light background
       } else {
@@ -831,7 +831,7 @@
     
     // Calculate luminance to determine if background is light or dark
     const rgb = bgColor.match(/\d+/g);
-    if (rgb &amp;&amp; rgb.length &gt;= 3) {
+    if (rgb && rgb.length >= 3) {
       const r = parseInt(rgb[0]);
       const g = parseInt(rgb[1]);
       const b = parseInt(rgb[2]);
@@ -967,7 +967,7 @@
       // ONLY apply inline positioning styles on mobile viewport
       // On desktop, the CSS handles hiding these buttons with display: none
       // Inline styles were breaking desktop layout by overriding CSS
-      const isMobileViewport = window.innerWidth &lt;= 768;
+      const isMobileViewport = window.innerWidth <= 768;
       
       if (mobileToggle) {
         // Icon sizing applies to all viewports for consistency
@@ -1158,7 +1158,7 @@
       phoneBtn.addEventListener('click', function() {
         // Get phone number from placeholder in page or use default
         const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
-        const phoneNumber = phoneLinks.length &gt; 0 
+        const phoneNumber = phoneLinks.length > 0 
           ? phoneLinks[0].getAttribute('href').replace('tel:', '')
           : '[business_phone]';
         
@@ -1175,7 +1175,7 @@
     const handleWhatsAppVisibility = function() {
       const whatsappBtn = document.querySelector('.whatsapp-float');
       if (whatsappBtn) {
-        const isDesktop = window.innerWidth &gt;= 769;
+        const isDesktop = window.innerWidth >= 769;
         if (isDesktop) {
           whatsappBtn.style.setProperty('display', 'none', 'important');
           whatsappBtn.style.setProperty('visibility', 'hidden', 'important');
@@ -1255,7 +1255,7 @@
     <span>קראתי ואני מסכים/ה ל<a href="/terms" target="_blank">תנאי השימוש</a> ול<a href="/privacy" target="_blank">מדיניות הפרטיות</a></span>
   </label>
 </div>
-<script data-privacy-consent-validation="">(function(){if(window._zpcv)return;window._zpcv=1;document.addEventListener("submit",function(e){var f=e.target;if(!f||f.tagName!=="FORM")return;var cb=f.querySelector(".privacy-consent-checkbox");if(!cb||cb.checked)return;e.preventDefault();e.stopImmediatePropagation();var isHe=document.documentElement.lang==="he"||document.documentElement.dir==="rtl";var msg=isHe?"יש לאשר את תנאי השימוש ומדיניות הפרטיות כדי להמשיך":"Please accept the Terms &amp; Conditions and Privacy Policy to continue";if(typeof window.zappyNotify==="function"){window.zappyNotify(msg,"error")}else if(typeof window.showNotification==="function"){window.showNotification(msg,"error")}else{var ex=document.querySelectorAll(".zappy-privacy-error");ex.forEach(function(el){el.remove()});var n=document.createElement("div");n.className="zappy-privacy-error";n.style.cssText="position:fixed;top:20px;right:20px;max-width:400px;padding:14px 18px;background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:10000;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px";n.textContent=msg;document.body.appendChild(n);setTimeout(function(){if(n.parentElement)n.remove()},6000)}cb.focus()},true)})();</script>
+<script data-privacy-consent-validation="">(function(){if(window._zpcv)return;window._zpcv=1;document.addEventListener("submit",function(e){var f=e.target;if(!f||f.tagName!=="FORM")return;var cb=f.querySelector(".privacy-consent-checkbox");if(!cb||cb.checked)return;e.preventDefault();e.stopImmediatePropagation();var isHe=document.documentElement.lang==="he"||document.documentElement.dir==="rtl";var msg=isHe?"יש לאשר את תנאי השימוש ומדיניות הפרטיות כדי להמשיך":"Please accept the Terms & Conditions and Privacy Policy to continue";if(typeof window.zappyNotify==="function"){window.zappyNotify(msg,"error")}else if(typeof window.showNotification==="function"){window.showNotification(msg,"error")}else{var ex=document.querySelectorAll(".zappy-privacy-error");ex.forEach(function(el){el.remove()});var n=document.createElement("div");n.className="zappy-privacy-error";n.style.cssText="position:fixed;top:20px;right:20px;max-width:400px;padding:14px 18px;background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);z-index:10000;font-family:-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px";n.textContent=msg;document.body.appendChild(n);setTimeout(function(){if(n.parentElement)n.remove()},6000)}cb.focus()},true)})();</script>
 <button type="submit" class="btn-primary contact-submit">שלחו הודעה <i class="fas fa-arrow-left" aria-hidden="true"></i></button>
       </form>
     </div>
@@ -1380,7 +1380,7 @@
 </section>
   </main>
   
-  <footer class="site-footer"><div class="footer-top"><div class="footer-container"><div class="footer-grid"><div class="footer-col footer-brand"><img src="/assets/business-logo.webp" alt="מאור נדלן 46" class="logo"><p class="brand-tagline">מומחים בנדל"ן עם ניסיון, מקצועיות ואמינות. אנחנו כאן לעזור לך למצוא את הנכס המושלם.</p><div class="social-links"><a href="[facebook_handle]" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="[instagram_handle]" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="[whatsapp_handle]" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></div></div><div class="footer-col footer-nav"><h3 class="footer-heading">ניווט מהיר</h3><ul class="footer-links"><li><a href="/about"><i class="fas fa-chevron-left"></i>אודות</a></li><li><a href="/neighborhoods"><i class="fas fa-chevron-left"></i>שכונות</a></li><li><a href="/contact"><i class="fas fa-chevron-left"></i>צור קשר</a></li></ul></div><div class="footer-col footer-contact"><h3 class="footer-heading">צור קשר</h3><ul class="contact-list"><li><i class="fas fa-envelope"></i><a href="mailto:[business_email]">[business_email]</a></li><li><i class="fas fa-phone"></i><a href="tel:[business_phone]">[business_phone]</a></li><li><a href="/"><i class="fas fa-map-marker-alt"></i><span>[business_address]</span></a></li></ul></div><div class="footer-col footer-extra"><h3 class="footer-heading">שעות פעילות</h3><ul class="hours-list"><li><a href="/"><span>ראשון – חמישי</span><span>09:00 – 18:00</span></a></li><li><a href="/"><span>שישי</span><span>09:00 – 13:00</span></a></li><li><a href="/"><span>שבת</span><span>סגור</span></a></li></ul><div class="footer-badge"><i class="fas fa-award"></i><span>מאור נדלן 46 – שירות אישי ומקצועי</span></div></div></div></div></div><div class="footer-bottom"><div class="footer-container"><div class="footer-bottom-inner"><p class="copyright">© 2026 מאור נדלן 46. כל הזכויות שמורות.</p><div class="footer-bottom-links"><a href="/privacy">מדיניות פרטיות</a><span class="separator">|</span><a href="/terms">תנאי שימוש</a><span class="separator">|</span><a href="/accessibility">נגישות</a><span class="separator">|</span><a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a></div></div></div></div></footer>
+  <footer class="site-footer"><div class="footer-top"><div class="footer-container"><div class="footer-grid"><div class="footer-col footer-brand"><img src="/assets/business-logo.webp" alt="מאור נדלן 46" class="logo"><p class="brand-tagline">סוכנות נדל"ן מובילה המתמחה בליווי מקצועי לרכישה, מכירה והשקעה בנדל"ן. אנו מחויבים לשקיפות, מצוינות ותוצאות.</p><div class="social-links"><a href="[facebook_handle]" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="[instagram_handle]" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="[whatsapp_handle]" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></div></div><div class="footer-col footer-nav"><h3 class="footer-heading">ניווט מהיר</h3><ul class="footer-links"><li><a href="/about"><i class="fas fa-chevron-left"></i>אודות</a></li><li><a href="/neighborhoods"><i class="fas fa-chevron-left"></i>שכונות</a></li><li><a href="/contact"><i class="fas fa-chevron-left"></i>צור קשר</a></li></ul></div><div class="footer-col footer-contact"><h3 class="footer-heading">צור קשר</h3><ul class="contact-list"><li><i class="fas fa-envelope"></i><a href="mailto:[business_email]">[business_email]</a></li><li><i class="fas fa-phone"></i><a href="tel:[business_phone]">[business_phone]</a></li><li><a href="/"><i class="fas fa-map-marker-alt"></i><span>[business_address]</span></a></li></ul></div><div class="footer-col footer-extra"><h3 class="footer-heading">שעות פעילות</h3><ul class="hours-list"><li><a href="/"><span>ראשון – חמישי</span><span>09:00 – 18:00</span></a></li><li><a href="/"><span>שישי</span><span>09:00 – 13:00</span></a></li><li><a href="/"><span>שבת</span><span>סגור</span></a></li></ul><div class="footer-badge"><i class="fas fa-award"></i><span>מאור נדלן 47 – מקצועיות, אמינות ומצוינות</span></div></div></div></div></div><div class="footer-bottom"><div class="footer-container"><div class="footer-bottom-inner"><p class="copyright">© 2026 מאור נדלן 47. כל הזכויות שמורות.</p><div class="footer-bottom-links"><a href="/privacy">מדיניות פרטיות</a><span class="separator">|</span><a href="/terms">תנאי שימוש</a><span class="separator">|</span><a href="/accessibility">נגישות</a><span class="separator">|</span><a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a></div></div></div></div></footer>
   
   <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
