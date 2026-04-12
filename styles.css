@@ -7546,6 +7546,248 @@ body.accessibility-widget-visible ._access-menu {
 }
 /* ZAPPY_SITE_SEARCH — CSS_END */
 
+/* AI-generated section */
+/* ===== MAOR STATS BAR SECTION ===== */
+.maor-stats-bar {
+  direction: rtl;
+  background: linear-gradient(135deg, #1a1d3a 0%, #2E315E 60%, #1e3a52 100%);
+  padding: 56px 24px;
+  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle decorative background glow */
+.maor-stats-bar::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 200px;
+  background: radial-gradient(ellipse at center, rgba(42, 110, 154, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Container */
+.maor-stats-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+/* Individual stat item */
+.maor-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex: 1 1 180px;
+  padding: 20px 32px;
+  gap: 10px;
+  position: relative;
+  transition: transform 0.3s ease;
+  cursor: default;
+}
+
+.maor-stat-item:hover {
+  transform: translateY(-4px);
+}
+
+/* Icon wrapper */
+.maor-stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(42, 110, 154, 0.22);
+  border: 1px solid rgba(42, 110, 154, 0.45);
+  color: #5ab8e8;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  margin-bottom: 2px;
+}
+
+.maor-stat-item:hover .maor-stat-icon {
+  background: rgba(42, 110, 154, 0.38);
+  border-color: rgba(90, 184, 232, 0.7);
+  color: #7ecef5;
+}
+
+.maor-stat-icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+/* Big bold number */
+.maor-stat-number {
+  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  background: linear-gradient(180deg, #ffffff 0%, #c8dff0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Fallback for browsers that don't support gradient text */
+  color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.maor-stat-item:hover .maor-stat-number {
+  transform: scale(1.05);
+}
+
+/* Label text */
+.maor-stat-label {
+  font-family: 'Oswald', 'Arial Narrow', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(200, 220, 240, 0.75);
+  text-transform: uppercase;
+  line-height: 1.3;
+  transition: color 0.3s ease;
+}
+
+.maor-stat-item:hover .maor-stat-label {
+  color: rgba(200, 220, 240, 1);
+}
+
+/* Vertical dividers between stats */
+.maor-stat-divider {
+  width: 1px;
+  height: 72px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(90, 184, 232, 0.35) 30%,
+    rgba(90, 184, 232, 0.35) 70%,
+    transparent 100%
+  );
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* ===== RESPONSIVE — TABLET ===== */
+@media (max-width: 900px) {
+  .maor-stats-bar {
+    padding: 44px 16px;
+  }
+
+  .maor-stats-container {
+    gap: 0;
+  }
+
+  .maor-stat-item {
+    flex: 1 1 140px;
+    padding: 16px 20px;
+    gap: 8px;
+  }
+
+  .maor-stat-number {
+    font-size: 2.4rem;
+  }
+
+  .maor-stat-label {
+    font-size: 0.82rem;
+  }
+
+  .maor-stat-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .maor-stat-icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .maor-stat-divider {
+    height: 60px;
+  }
+}
+
+/* ===== RESPONSIVE — MOBILE ===== */
+@media (max-width: 600px) {
+  .maor-stats-bar {
+    padding: 40px 12px;
+  }
+
+  .maor-stats-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  /* Hide vertical dividers on mobile — replaced by grid gaps */
+  .maor-stat-divider {
+    display: none;
+  }
+
+  .maor-stat-item {
+    flex: none;
+    padding: 24px 16px;
+    gap: 8px;
+    border-bottom: 1px solid rgba(90, 184, 232, 0.15);
+  }
+
+  /* Remove bottom border from last row */
+  .maor-stat-item:nth-child(7),
+  .maor-stat-item:nth-child(8) {
+    border-bottom: none;
+  }
+
+  /* Add right border to left column items */
+  .maor-stat-item:nth-child(odd) {
+    border-left: 1px solid rgba(90, 184, 232, 0.15);
+  }
+
+  .maor-stat-number {
+    font-size: 2.2rem;
+  }
+
+  .maor-stat-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+  }
+
+  .maor-stat-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .maor-stat-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* ===== VERY SMALL MOBILE ===== */
+@media (max-width: 360px) {
+  .maor-stat-number {
+    font-size: 1.9rem;
+  }
+
+  .maor-stat-label {
+    font-size: 0.72rem;
+  }
+
+  .maor-stat-item {
+    padding: 20px 10px;
+  }
+}
+
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
 /* High-specificity rules to ensure RTL positioning wins over any [lang="en"] conflicts */
 /* For RTL sites: hamburger on RIGHT, phone on LEFT (mirror of LTR layout) */
