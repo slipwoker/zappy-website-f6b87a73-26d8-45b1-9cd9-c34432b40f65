@@ -11053,12 +11053,6 @@ body.accessibility-widget-visible ._access-menu {
     display: none !important;
   }
 }
-/* Font pairing applied */
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Nunito+Sans:wght@400&display=swap');
-:root { --font-heading: 'Sora', sans-serif; --font-body: 'Nunito Sans', sans-serif; }
-body { font-family: 'Nunito Sans', sans-serif; font-weight: 400; }
-h1, h2, h3, h4, h5, h6 { font-family: 'Sora', sans-serif; font-weight: 700; }
-
 
 /* ========== RTL MOBILE NAVBAR FIX (zappy-rtl-mobile-fix) ========== */
 /* High-specificity rules to ensure RTL positioning wins over any [lang="en"] conflicts */
