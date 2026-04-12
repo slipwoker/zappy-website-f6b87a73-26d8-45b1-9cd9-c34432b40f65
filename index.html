@@ -242,443 +242,50 @@
     <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
     <!-- Mickidum Accessibility Toolbar -->
     <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
-
-          <style id="zappy-cta-mobile-style">
-            /* Hide CTA list item on desktop (tablets and up) */
-            @media (min-width: 769px) {
-              .nav-cta-item-mobile {
-                display: none !important;
-              }
-            }
-            /* Show CTA list item on mobile */
-            @media (max-width: 768px) {
-              .nav-cta-item-mobile {
-                display: list-item !important;
-              }
-            }
-          </style>
-        
-          <style id="zappy-nested-menu-style">
-            /* Desktop only: vertically center nav items */
-            @media (min-width: 769px) {
-              .nav-menu,
-              #navMenu {
-                align-items: center !important;
-              }
-            }
-            
-            /* Menu Group styling (non-clickable parent) - TOP LEVEL ONLY with ultra-specific selector */
-            .nav-menu > li > .menu-group-title,
-            #navMenu > li > .menu-group-title {
-              display: inline-block !important;
-              padding: 0.5rem 1rem !important;
-              color: var(--nav-color) !important;
-              font-weight: 500 !important;
-              line-height: 1.7 !important;
-              cursor: default !important;
-              user-select: none !important;
-              vertical-align: middle !important;
-              text-decoration: none !important;
-              margin: 0 !important;
-              transition: color 0.3s ease !important;
-            }
-            
-            .nav-menu > li > .menu-group-title:hover,
-            #navMenu > li > .menu-group-title:hover {
-              color: var(--nav-hover-color) !important;
-            }
-            
-            /* Desktop: show submenu on Menu Group hover */
-            li:has(.menu-group-title):hover > .sub-menu {
-              opacity: 1 !important;
-              visibility: visible !important;
-              transform: translateY(0) !important;
-              pointer-events: auto !important; /* Enable interaction when hovering */
-            }
-            
-            /* Hide menu items marked as hidden (overrides hover states) */
-            .zappy-hidden-menu-item,
-            li:has(.menu-group-title):hover > .sub-menu .zappy-hidden-menu-item {
-              display: none !important;
-              opacity: 0 !important;
-              visibility: hidden !important;
-              pointer-events: none !important;
-            }
-            
-            /* Keep submenu visible when hovering over the submenu itself */
-            .sub-menu:hover {
-              opacity: 1 !important;
-              visibility: visible !important;
-              pointer-events: auto !important;
-            }
-            
-            /* Nested dropdown menu styles - using more specific selectors */
-            .nav-menu .sub-menu,
-            nav .sub-menu,
-            .navbar .sub-menu {
-              display: block !important; /* Ensure submenu is in the DOM */
-              position: absolute !important;
-              top: 100%;
-              left: 0;
-              right: auto;
-              min-width: 200px;
-              background: white;
-              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-              border-radius: 8px;
-              padding: 8px 0;
-              margin-top: 0px; /* Remove gap to prevent hover loss */
-              opacity: 0 !important;
-              visibility: hidden !important;
-              transform: translateY(-10px);
-              transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-              z-index: 1000;
-              list-style: none;
-              pointer-events: none; /* Prevent interaction when hidden */
-            }
-            
-            /* RTL (Hebrew/Arabic) submenu positioning - align to right instead of left */
-            [dir="rtl"] .nav-menu .sub-menu,
-            [dir="rtl"] nav .sub-menu,
-            [dir="rtl"] .navbar .sub-menu,
-            html[lang="he"] .nav-menu .sub-menu,
-            html[lang="he"] nav .sub-menu,
-            html[lang="he"] .navbar .sub-menu,
-            html[lang="ar"] .nav-menu .sub-menu,
-            html[lang="ar"] nav .sub-menu,
-            html[lang="ar"] .navbar .sub-menu {
-              left: auto;
-              right: 0;
-            }
-            
-            /* Show submenu on parent hover - more specific selectors */
-            .nav-menu li:hover > .sub-menu,
-            nav li:hover > .sub-menu,
-            .navbar li:hover > .sub-menu {
-              opacity: 1 !important;
-              visibility: visible !important;
-              transform: translateY(0) !important;
-              pointer-events: auto !important; /* Enable interaction when visible */
-            }
-            
-            /* Parent item must be relatively positioned */
-            .nav-menu li:has(.sub-menu),
-            nav li:has(.sub-menu),
-            .navbar li:has(.sub-menu) {
-              position: relative;
-            }
-            
-            /* Style for submenu items */
-            .sub-menu li {
-              list-style: none;
-              margin: 0;
-              padding: 0;
-            }
-            
-            .sub-menu a,
-            .sub-menu .menu-group-title {
-              display: block !important;
-              padding: 10px 12px !important;
-              color: #333 !important;
-              font-weight: 600 !important;
-              text-decoration: none;
-              transition: background-color 0.2s;
-              white-space: nowrap;
-              cursor: default;
-            }
-            
-            .sub-menu a:hover {
-              background-color: #f5f5f5;
-            }
-            
-            /* CRITICAL: Override submenu styles for TOP-LEVEL Menu Groups only - must come AFTER submenu styles */
-            .nav-menu > li > .menu-group-title,
-            #navMenu > li > .menu-group-title {
-              display: inline-block !important;
-              padding: 0.5rem 1rem !important;
-              color: var(--nav-color) !important;
-              font-weight: 500 !important;
-              line-height: 1.7 !important;
-              cursor: default !important;
-              user-select: none !important;
-              vertical-align: middle !important;
-              text-decoration: none !important;
-              margin: 0 !important;
-              transition: color 0.3s ease !important;
-            }
-            
-            .nav-menu > li > .menu-group-title:hover,
-            #navMenu > li > .menu-group-title:hover {
-              color: var(--nav-hover-color) !important;
-              background-color: transparent !important;
-            }
-            
-            /* On mobile, show nested menus as expandable accordion */
-            @media (max-width: 768px) {
-              /* Mobile submenu styling */
-              .nav-menu .sub-menu,
-              nav .sub-menu,
-              .navbar .sub-menu {
-                position: static !important;
-                transform: none !important;
-                box-shadow: none !important;
-                background: transparent !important;
-                margin-top: 0 !important;
-                max-height: 0;
-                overflow: hidden;
-                opacity: 0;
-                visibility: hidden;
-                transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease, padding 0.3s ease;
-                padding: 0 !important;
-                border-radius: 0 !important;
-              }
-              
-              /* Expanded state */
-              .sub-menu.mobile-expanded {
-                max-height: 60vh !important;
-                overflow-y: auto !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                padding: 8px 0 8px 16px !important;
-              }
-              
-              /* RTL padding adjustment */
-              [dir="rtl"] .sub-menu.mobile-expanded,
-              html[lang="he"] .sub-menu.mobile-expanded,
-              html[lang="ar"] .sub-menu.mobile-expanded {
-                padding: 8px 16px 8px 0 !important;
-              }
-              
-              /* Disable hover behavior on mobile */
-              .nav-menu li:hover > .sub-menu,
-              nav li:hover > .sub-menu,
-              .navbar li:hover > .sub-menu {
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
-              }
-              
-              /* Enable visibility for expanded submenus */
-              .nav-menu li > .sub-menu.mobile-expanded,
-              nav li > .sub-menu.mobile-expanded,
-              .navbar li > .sub-menu.mobile-expanded {
-                opacity: 1 !important;
-                visibility: visible !important;
-                pointer-events: auto !important;
-              }
-              
-              .sub-menu a {
-                padding: 10px 0 !important;
-                display: block !important;
-                font-size: 14px !important;
-              }
-              
-              .sub-menu a:hover {
-                background-color: transparent !important;
-              }
-              
-              /* Parent item wrapper - flex layout with relative positioning for absolute toggle */
-              .nav-menu li:has(.sub-menu),
-              nav li:has(.sub-menu),
-              .navbar li:has(.sub-menu) {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                align-items: center !important;
-                position: relative !important;
-                min-height: 44px !important;
-              }
-              
-              /* Parent link - takes full width since toggle is absolute (not a flex child) */
-              .nav-menu li:has(.sub-menu) > a,
-              nav li:has(.sub-menu) > a,
-              .navbar li:has(.sub-menu) > a,
-              .nav-menu > li > .menu-group-title,
-              #navMenu > li > .menu-group-title {
-                flex: 1 !important;
-                min-width: 0 !important;
-              }
-              
-              /* Normalize menu-group-title in mobile nav to match link alignment */
-              .nav-menu > li > .menu-group-title,
-              #navMenu > li > .menu-group-title {
-                padding: 0 !important;
-                line-height: inherit !important;
-              }
-              
-              /* Submenu takes full width below parent */
-              .nav-menu li:has(.sub-menu) > .sub-menu,
-              nav li:has(.sub-menu) > .sub-menu,
-              .navbar li:has(.sub-menu) > .sub-menu {
-                flex-basis: 100% !important;
-                width: 100% !important;
-              }
-              
-              /* HIDE EXISTING CHEVRONS/ARROWS from cloned sites to prevent duplicates */
-              .nav-menu li:has(.sub-menu) > a .fa-chevron-down,
-              .nav-menu li:has(.sub-menu) > a .fa-angle-down,
-              .nav-menu li:has(.sub-menu) > a [class*="chevron"],
-              .nav-menu li:has(.sub-menu) > a [class*="arrow"],
-              nav li:has(.sub-menu) > a [class*="chevron"],
-              nav li:has(.sub-menu) > a [class*="arrow"],
-              #navMenu li:has(.sub-menu) > a [class*="chevron"],
-              #navMenu li:has(.sub-menu) > a [class*="arrow"] {
-                display: none !important;
-                visibility: hidden !important;
-              }
-              
-              /* Toggle arrow button - flex child that stretches to match nav-link height */
-              .mobile-submenu-toggle {
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                width: 44px !important;
-                height: auto !important;
-                background: transparent !important;
-                border: none !important;
-                cursor: pointer !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                position: static !important;
-                flex-shrink: 0 !important;
-                align-self: stretch !important;
-                z-index: 2 !important;
-                -webkit-tap-highlight-color: transparent;
-              }
-              
-              .mobile-submenu-toggle::after {
-                content: '' !important;
-                display: block !important;
-                width: 0 !important;
-                height: 0 !important;
-                border-left: 6px solid transparent !important;
-                border-right: 6px solid transparent !important;
-                border-top: 7px solid currentColor !important;
-                transition: transform 0.3s ease !important;
-              }
-              
-              /* Rotate arrow when expanded */
-              .mobile-submenu-toggle.expanded::after {
-                transform: rotate(180deg) !important;
-              }
-            }
-            
-            /* Hide toggle button on desktop */
-            @media (min-width: 769px) {
-              .mobile-submenu-toggle {
-                display: none !important;
-              }
-            }
-          </style>
-          
-          <script id="zappy-mobile-menu-script">
-            // Mobile menu toggle for nested submenus (including Menu Groups)
-            // Uses separate toggle button - link navigates, arrow toggles submenu
-            (function() {
-              function initMobileMenuToggles() {
-                // Only run on mobile
-                if (window.innerWidth > 768) {
-                  // Remove any toggle buttons on desktop
-                  document.querySelectorAll('.mobile-submenu-toggle').forEach(btn => btn.remove());
-                  document.querySelectorAll('.sub-menu.mobile-expanded').forEach(menu => {
-                    menu.classList.remove('mobile-expanded');
-                  });
-                  console.log('[MOBILE MENU] Desktop mode - cleanup done');
-                  return;
-                }
-                
-                console.log('[MOBILE MENU] Initializing mobile menu toggles...');
-                
-                // Find all parent menu items (items with .sub-menu)
-                const menuItemsWithSubmenus = document.querySelectorAll(
-                  '.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)'
-                );
-                
-                console.log('[MOBILE MENU] Found', menuItemsWithSubmenus.length, 'items with submenus');
-                
-                menuItemsWithSubmenus.forEach(function(li) {
-                  // Skip if already has toggle button
-                  if (li.querySelector('.mobile-submenu-toggle')) {
-                    return;
-                  }
-                  
-                  const submenu = li.querySelector('.sub-menu');
-                  const parentLink = li.querySelector(':scope > a') || li.querySelector(':scope > .menu-group-title');
-                  
-                  if (!submenu || !parentLink) return;
-                  
-                  // Create toggle button
-                  const toggleBtn = document.createElement('button');
-                  toggleBtn.className = 'mobile-submenu-toggle';
-                  toggleBtn.setAttribute('aria-label', 'Toggle submenu');
-                  toggleBtn.setAttribute('type', 'button');
-
-                  // Insert toggle button after the link
-                  parentLink.insertAdjacentElement('afterend', toggleBtn);
-                  
-                  console.log('[MOBILE MENU] Created toggle button for:', parentLink.textContent?.trim());
-                  
-                  // Handle toggle button click - only toggles submenu
-                  toggleBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    const isExpanded = submenu.classList.contains('mobile-expanded');
-                    
-                    // Close all other submenus first
-                    document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
-                      if (menu !== submenu) {
-                        menu.classList.remove('mobile-expanded');
-                        const otherToggle = menu.parentElement.querySelector('.mobile-submenu-toggle');
-                        if (otherToggle) otherToggle.classList.remove('expanded');
-                      }
-                    });
-                    
-                    // Toggle this submenu
-                    submenu.classList.toggle('mobile-expanded');
-                    toggleBtn.classList.toggle('expanded');
-                    
-                    console.log('[MOBILE MENU] Toggled submenu:', !isExpanded ? 'expanded' : 'collapsed');
-                  });
-                  
-                  // Parent link navigates normally - no preventDefault
-                });
-              }
-              
-              // Initialize on DOM load
-              if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initMobileMenuToggles);
-              } else {
-                initMobileMenuToggles();
-              }
-              
-              // Re-initialize on window resize (but use debounce to avoid too many calls)
-              let resizeTimer;
-              window.addEventListener('resize', function() {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(initMobileMenuToggles, 250);
-              });
-              
-              // Also initialize when mobile menu becomes visible
-              // This handles cases where the mobile menu is hidden initially
-              const observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                  if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                    const target = mutation.target;
-                    if (target.classList.contains('active') || target.style.display !== 'none') {
-                      console.log('[MOBILE MENU] Mobile menu became visible, re-initializing...');
-                      setTimeout(initMobileMenuToggles, 100);
-                    }
-                  }
-                });
-              });
-              
-              // Observe mobile menu containers
-              const mobileMenus = document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu');
-              mobileMenus.forEach(function(menu) {
-                observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
-              });
-            })();
-          </script>
     <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .sub-menu.mobile-expanded { max-height: 60vh !important; overflow-y: auto !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
 
     <style id="mobile-lang-menu-deployed-css">
     @media (max-width: 768px) {
@@ -717,10 +324,18 @@
 <body>
 
 
-    
-  
-
-    
+    <div class="mobile-search-panel" id="mobile-search-panel">
+      <div class="search-wrapper">
+        <input type="text" id="mobile-search-input" placeholder="חיפוש מוצרים..." autocomplete="off">
+        <button class="search-submit" id="mobile-search-submit" title="חיפוש">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+        </button>
+        <button class="close-search" id="close-mobile-search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div class="search-results" id="mobile-search-results"></div>
+    </div>
   
 <script>window.ZAPPY_WEBSITE_ID = "f6b87a73-26d8-45b1-9cd9-c34432b40f65";window.ZAPPY_API_BASE = (window.location.pathname.includes('/preview') ? "http://localhost:5001" : "https://qaapi.zappy5.com");</script>
   <nav class="navbar" dir="rtl">
@@ -737,45 +352,49 @@
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
     </svg>
-  </button><button class="zappy-search-mobile-trigger" data-zappy-search-mobile-trigger="" aria-label="חיפוש">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-</button>
+  </button>
 
   <div class="nav-container">
     <div class="nav-right-group"><div class="nav-brand">
       <a href="/" class="logo-link">
         <img src="/assets/business-logo.webp" alt="מאור נדלן 46" class="logo">
       </a>
-    </div><ul class="nav-menu" id="navMenu"><li><a href="/about">אודות</a></li><li><a href="/neighborhoods">שכונות</a></li><li class="nav-cta-item-mobile"><a href="/contact">צור קשר</a></li></ul><div class="nav-cta-container"><div class="zappy-search-container" id="zappy-search-container">
-  <button class="zappy-search-trigger" data-zappy-search-trigger="" aria-label="חיפוש">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-  </button>
-  <div class="zappy-search-expanded">
-    <svg class="zappy-search-exp-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-    <input type="text" id="zappy-search-input" class="zappy-search-input" placeholder="חיפוש..." autocomplete="off">
-    <button class="zappy-search-close" aria-label="סגור חיפוש">×</button>
-  </div>
-  <div id="zappy-search-results" class="zappy-search-results"></div>
-</div><li class="nav-cta-item"><a href="/contact" class="nav-cta-btn">צור קשר</a></li></div></div>
+    </div><ul class="nav-menu" id="navMenu">
 
-    
-
-    
-  </div>
-</nav><div class="zappy-search-mobile-bar" id="zappy-search-mobile-bar">
-  <div class="zappy-search-mobile-wrapper">
-    <input type="text" id="zappy-search-mobile-input" class="zappy-search-mobile-input" placeholder="חיפוש..." autocomplete="off">
-    <button class="zappy-search-mobile-close" aria-label="סגור חיפוש">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+    <li class="menu-item-has-children zappy-products-dropdown">
+      <a href="/products">
+        מוצרים
+        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 9l6 6 6-6"></path>
+        </svg>
+      </a>
+      <ul class="sub-menu" id="zappy-nav-category-links">
+        <li><a href="/products">כל המוצרים</a></li>
+        <!-- Categories will be loaded dynamically -->
+      </ul>
+    </li>
+  <li><a href="/about">אודות</a></li><li><a href="/neighborhoods">שכונות</a></li><li><a href="/contact">צור קשר</a></li></ul><div class="nav-ecommerce-icons nav-icons-left"><div class="nav-search-box">
+    <input type="text" class="nav-search-input" id="nav-search-input" placeholder="חיפוש מוצרים..." autocomplete="off">
+    <button class="nav-search-btn" id="nav-search-btn" title="חיפוש">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
     </button>
+    <div class="nav-search-results" id="nav-search-results"></div>
+  </div></div><div class="nav-ecommerce-icons nav-icons-right"><button class="nav-search-toggle" id="mobile-search-toggle" title="חיפוש"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg></button></div></div>
+
+    
+
+    
   </div>
-  <div id="zappy-search-mobile-results" class="zappy-search-mobile-results"></div>
-</div>
+</nav>
 
-    
-  
-
-    
+    <nav class="zappy-catalog-menu rtl" id="zappy-catalog-menu" dir="rtl">
+      <div class="catalog-menu-container">
+        <a href="/products" class="catalog-menu-item catalog-menu-all">כל המוצרים</a>
+        <div class="catalog-menu-categories" id="zappy-category-links">
+          <!-- Categories will be loaded dynamically -->
+        </div>
+      </div>
+    </nav>
   
 <script>
 
@@ -1207,10 +826,10 @@
 </script>
   
   <main>
-    <section class="index-hero-section" data-layout-spec="בית-hero" dir="rtl" data-hero-type="fullscreen-scrim" id="zappy-section-0" data-zappy-content-align="center-mid-right">
+    <section class="index-hero-section" data-layout-spec="בית-hero" dir="rtl" data-hero-type="fullscreen-scrim">
   <!-- Background Image -->
   <div class="index-hero-bg-wrap">
-    <div data-zappy-zoom-wrapper="true" data-element-id="img-1774872461425-n1yp6nu33" data-element-type="image" data-zappy-zoom-wrapper-width-mode="full" data-zappy-zoom-clip="true" data-zappy-wrapper-margins-applied="true" style="position: absolute !important; top: 0px !important; left: 0px !important; width: 100% !important; height: 100% !important; max-width: none !important; margin-left: 0px !important; margin-right: 0px !important; display: block !important; z-index: 1 !important; overflow: hidden !important;"><img data-hero-bg="true" data-placeholder="index-hero-image-1" data-context="Aerial blue-hour cityscape of an Israeli city skyline, tall residential and commercial towers glowing with warm lights against a deep indigo twilight sky, dramatic urban density, cinematic wide-angle perspective from above, editorial real estate photography style, rich blues and warm amber city lights" width="1400" height="800" src="/assets/site-index-hero-image-1.webp" alt="נוף אווירי של עיר ישראלית בשעת הכחול" class="index-hero-bg-img" data-hero-background="true" data-element-type="image" data-element-id="img-1774872461425-n1yp6nu33" style="object-position: 50% 50% !important; position: absolute !important; margin: 0px !important; left: -8.83526% !important; top: 0% !important; width: 117.671% !important; height: 100% !important; max-width: none !important; max-height: none !important; display: block !important; object-fit: cover !important;" data-zappy-zoom="1" data-zappy-mobile-object-position="50% 50%" data-zappy-mobile-zoom="1" data-zappy-mobile-src="/assets/image-1774961736209-oxlxp9.webp?v=1774961738677"></div>
+    <img data-hero-bg="true" data-placeholder="index-hero-image-1" data-context="Aerial blue-hour cityscape of an Israeli city skyline, tall residential and commercial towers glowing with warm lights against a deep indigo twilight sky, dramatic urban density, cinematic wide-angle perspective from above, editorial real estate photography style, rich blues and warm amber city lights" width="1400" height="800" src="/assets/site-index-hero-image-1.webp" alt="נוף אווירי של עיר ישראלית בשעת הכחול" class="index-hero-bg-img">
   </div>
 
   <!-- Scrim Overlay -->
@@ -1220,15 +839,15 @@
   <div class="index-hero-blueprint" aria-hidden="true"></div>
 
   <!-- Content Group -->
-  <div class="index-hero-container" data-zappy-align-target="true" >
+  <div class="index-hero-container">
     <div class="index-hero-content">
-      <p><span class="index-hero-label">סוכנות נדל"ן</span>
-      </p><h1 class="index-hero-h1">מכירים את העיר<br><br>רחוב אחר רחוב</h1>
+      <span class="index-hero-label">סוכנות נדל"ן</span>
+      <h1 class="index-hero-h1">מכירים את העיר<br>רחוב אחר רחוב</h1>
       <h3 class="index-hero-h3">ליווי פרימיום לרכישה, מכירה והשקעה נבונה בנדל"ן</h3>
-      <p class="index-hero-body" style="text-align: right;">אנחנו מביאים ידע מקומי עמוק, שיקול דעת מקצועי ותהליך עבודה מותאם אישית — כי כל עסקה היא הרבה יותר מנכס.</p>
-      <div class="index-hero-ctas" style="text-align: right !important; display: flex !important; justify-content: flex-start !important; align-items: flex-start !important; width: 100% !important;">
-        <a href="/contact" class="index-hero-btn-primary btn btn-primary" data-element-type="button" data-element-id="btn-1774872461423-rfy0do8xh" data-native-element="true" style="outline: none; border-color: rgb(210, 91, 59) !important; color: rgb(255, 255, 255) !important; background-color: rgb(210, 91, 59) !important; background-image: none !important;">דברו עם הסוכנות</a>
-        <a href="/contact" class="index-hero-btn-ghost btn btn-ghost" data-element-type="button" data-element-id="btn-1774872461423-zcy9j0c7g" data-native-element="true" style="outline: none; background-color: transparent !important; background-image: none !important; color: rgb(247, 243, 236) !important; border-color: transparent !important;">תכננו את הצעד הבא</a>
+      <p class="index-hero-body">אנחנו מביאים ידע מקומי עמוק, שיקול דעת מקצועי ותהליך עבודה מותאם אישית — כי כל עסקה היא הרבה יותר מנכס.</p>
+      <div class="index-hero-ctas">
+        <a href="/contact" class="index-hero-btn-primary">דברו עם הסוכנות</a>
+        <a href="/contact" class="index-hero-btn-ghost">תכננו את הצעד הבא</a>
       </div>
     </div>
   </div>
@@ -1241,73 +860,27 @@
   </div>
 </section>
 
-<section class="maor-stats-bar" aria-label="הישגים ונתונים מרכזיים">
-  <div class="maor-stats-container">
-
-    <div class="maor-stat-item" role="listitem">
-      <div class="maor-stat-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <polyline points="12 6 12 12 16 14"/>
-        </svg>
+    <section class="featured-products-section" id="featured-products" data-zappy-dynamic="true">
+      <div class="container">
+        <h2 class="section-title">מוצרים מומלצים</h2>
+        <div class="product-grid featured-grid" id="zappy-featured-products">
+          <div class="loading-products">טוען מוצרים...</div>
+        </div>
+        <div class="view-all-products">
+          <a href="/products" class="btn btn-primary">צפה בכל המוצרים →</a>
+        </div>
       </div>
-      <div class="maor-stat-number" aria-label="15 פלוס שנות ניסיון">15+</div>
-      <div class="maor-stat-label">שנות ניסיון</div>
-    </div>
-
-    <div class="maor-stat-divider" aria-hidden="true"></div>
-
-    <div class="maor-stat-item" role="listitem">
-      <div class="maor-stat-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
-          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-        </svg>
-      </div>
-      <div class="maor-stat-number" aria-label="300 פלוס עסקאות מוצלחות">300+</div>
-      <div class="maor-stat-label">עסקאות מוצלחות</div>
-    </div>
-
-    <div class="maor-stat-divider" aria-hidden="true"></div>
-
-    <div class="maor-stat-item" role="listitem">
-      <div class="maor-stat-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-      </div>
-      <div class="maor-stat-number" aria-label="20 פלוס שכונות">20+</div>
-      <div class="maor-stat-label">שכונות מכוסות</div>
-    </div>
-
-    <div class="maor-stat-divider" aria-hidden="true"></div>
-
-    <div class="maor-stat-item" role="listitem">
-      <div class="maor-stat-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-        </svg>
-      </div>
-      <div class="maor-stat-number" aria-label="98 אחוז שביעות רצון">98%</div>
-      <div class="maor-stat-label">שביעות רצון לקוחות</div>
-    </div>
-
-  </div>
-</section>
-
-
-
-    
+    </section>
   
 
-    
-  
-
-    
-  
-
-    
+    <section class="featured-categories-section" id="featured-categories" data-zappy-dynamic="true">
+      <div class="container">
+        <h2 class="section-title">קנו לפי קטגוריה</h2>
+        <div class="category-blocks" id="zappy-featured-categories">
+          <div class="loading-categories">טוען מוצרים...</div>
+        </div>
+      </div>
+    </section>
   
 
 <section class="index-services-section" data-layout-spec="בית-services" dir="rtl">
@@ -1360,19 +933,6 @@
             <p>הכרת השכונה עמוקה מעבר לנתוני שוק — ייעוץ השקעה בנדל"ן למשקיעים וסוכן נדל"ן לרוכשים בפעם הראשונה, עם הבנה מלאה של הפוטנציאל המקומי, מגמות הסביבה, ואיכות החיים האמיתית.</p>
           </div>
         </div>
-
-        <div class="index-services-item">
-          <div class="index-services-item-icon">
-            <svg data-element-type="icon" data-icon-type="svg" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M5 14H23M5 8H23M5 20H15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
-              <path d="M20 17L24 21L20 25" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-          </div>
-          <div class="index-services-item-body">
-            <h3 class="index-services-item-title">ליווי משפטי ופיננסי</h3>
-            <p>רשת מומחים מוכחת לצד כל עסקה — עורכי דין מתמחים בנדל"ן, יועצי משכנתאות, ומפקחי בנייה. אנחנו מחברים אתכם לאנשים הנכונים בכל שלב, כדי שתוכלו להתמקד בהחלטה ולא בבירוקרטיה.</p>
-          </div>
-        </div>
       </div>
 
       <a href="/contact" class="btn-primary index-services-cta">בואו נדבר על הנכס שלכם</a>
@@ -1385,7 +945,7 @@
 
       <!-- Translucent frame wrapper -->
       <div class="index-services-frame">
-        <img data-placeholder="index-services-image-1" data-context="Tall architectural facade photograph of a premium Israeli residential building exterior, warm afternoon light, clean modern lines, Jerusalem stone cladding, lush greenery, upscale neighborhood feel, soft contrast, natural shadows, editorial real estate photography style" width="520" height="680" src="/assets/site-index-services-image-1-grayscale-1775974010413-7d5b38.webp?v=1775974010413" alt="חזית בניין מגורים פרימיום בשכונה יוקרתית" class="index-services-photo">
+        <img data-placeholder="index-services-image-1" data-context="Tall architectural facade photograph of a premium Israeli residential building exterior, warm afternoon light, clean modern lines, Jerusalem stone cladding, lush greenery, upscale neighborhood feel, soft contrast, natural shadows, editorial real estate photography style" width="520" height="680" src="/assets/site-index-services-image-1.webp" alt="חזית בניין מגורים פרימיום בשכונה יוקרתית" class="index-services-photo">
       </div>
     </div>
   </div>
@@ -1403,7 +963,7 @@
     <!-- Intro Block -->
     <div class="showcase-intro">
       <span class="showcase-eyebrow">סוכנות נדלן</span>
-      <h2 class="showcase-heading">לקרוא עיר<br><br><br><br>מעבר למודעה</h2>
+      <h2 class="showcase-heading">לקרוא עיר<br>מעבר למודעה</h2>
       <p class="showcase-subtext">כל נכס הוא חלק מסיפור גדול יותר — רחוב, קצב חיים, אופי הבניין, ושכנים שהופכים שכונה לבית. אנחנו ב־מאור נדלן 46 מכירים את השכונות מבפנים: לא רק את המחירים, אלא את ההרגשה שתחיו בה כל בוקר. כך אנחנו מוצאים עבורכם נכס שמתאים לא רק לצרכים — אלא לחיים.</p>
       <a href="/contact" class="btn-showcase-cta">דברו איתנו</a>
     </div>
@@ -1567,7 +1127,7 @@
       <div class="index-cta-frame-corner index-cta-frame-corner--bl" aria-hidden="true"></div>
       <div class="index-cta-inner">
         <span class="index-cta-eyebrow">מאור נדלן 46</span>
-        <h2 class="index-cta-heading">מוכנים לצעד הבא?<br><br><br><br>בואו נדבר</h2>
+        <h2 class="index-cta-heading">מוכנים לצעד הבא?<br>בואו נדבר</h2>
         <p class="index-cta-desc">בין אם אתם שוקלים לרכוש דירה ראשונה, למכור נכס קיים, או לבחון השקעה חכמה בנדל"ן — אנחנו כאן כדי ללוות אתכם בכל שלב עם ייעוץ מקצועי, אמין ומותאם אישית. סוכנות נדל"ן שמקשיבה ומביאה תוצאות.</p>
         <div class="index-cta-buttons">
           <a href="/contact" class="index-cta-btn-primary">צרו קשר עכשיו</a>
@@ -1579,7 +1139,10 @@
 </section>
   </main>
   
-  <footer class="site-footer"><div class="footer-top"><div class="footer-container"><div class="footer-grid"><div class="footer-col footer-brand"><img src="/assets/business-logo.webp" alt="מאור נדלן 46" class="logo"><p class="brand-tagline">סוכנות נדל"ן מובילה המתמחה בליווי מקצועי לרכישה, מכירה והשקעה בנדל"ן. אנו מחויבים לשקיפות, מצוינות ותוצאות.</p><div class="social-links"><a href="[facebook_handle]" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="[instagram_handle]" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="[whatsapp_handle]" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></div></div><div class="footer-col footer-nav"><h3 class="footer-heading">ניווט מהיר</h3><ul class="footer-links"><li><a href="/about"><i class="fas fa-chevron-left"></i>אודות</a></li><li><a href="/neighborhoods"><i class="fas fa-chevron-left"></i>שכונות</a></li><li><a href="/contact"><i class="fas fa-chevron-left"></i>צור קשר</a></li></ul></div><div class="footer-col footer-contact"><h3 class="footer-heading">צור קשר</h3><ul class="contact-list"><li><i class="fas fa-envelope"></i><a href="mailto:[business_email]">[business_email]</a></li><li><i class="fas fa-phone"></i><a href="tel:[business_phone]">[business_phone]</a></li><li><a href="/"><i class="fas fa-map-marker-alt"></i><span>[business_address]</span></a></li></ul></div><div class="footer-col footer-extra"><h3 class="footer-heading">שעות פעילות</h3><ul class="hours-list"><li><a href="/"><span>ראשון – חמישי</span><span>09:00 – 18:00</span></a></li><li><a href="/"><span>שישי</span><span>09:00 – 13:00</span></a></li><li><a href="/"><span>שבת</span><span>סגור</span></a></li></ul><div class="footer-badge"><i class="fas fa-award"></i><span>מאור נדלן 47 – מקצועיות, אמינות ומצוינות</span></div></div></div></div></div><div class="footer-bottom"><div class="footer-container"><div class="footer-bottom-inner"><p class="copyright">© 2026 מאור נדלן 47. כל הזכויות שמורות.</p><div class="footer-bottom-links"><a href="/privacy">מדיניות פרטיות</a><span class="separator">|</span><a href="/terms">תנאי שימוש</a><span class="separator">|</span><a href="/accessibility">נגישות</a><span class="separator">|</span><a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a></div></div></div></div></footer>
+  <footer class="site-footer"><div class="footer-top"><div class="footer-container"><div class="footer-grid"><div class="footer-col footer-brand"><img src="/assets/business-logo.webp" alt="מאור נדלן 46" class="logo"><p class="brand-tagline">מומחים בנדל"ן עם ניסיון, מקצועיות ואמינות. אנחנו כאן לעזור לך למצוא את הנכס המושלם.</p><div class="social-links"><a href="[facebook_handle]" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a><a href="[instagram_handle]" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="[whatsapp_handle]" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></div></div><div class="footer-col footer-nav"><h3 class="footer-heading">ניווט מהיר</h3><ul class="footer-links"><li><a href="/about"><i class="fas fa-chevron-left"></i>אודות</a></li><li><a href="/neighborhoods"><i class="fas fa-chevron-left"></i>שכונות</a></li><li><a href="/contact"><i class="fas fa-chevron-left"></i>צור קשר</a></li></ul></div><div class="footer-col footer-contact"><h3 class="footer-heading">צור קשר</h3><ul class="contact-list"><li><i class="fas fa-envelope"></i><a href="mailto:[business_email]">[business_email]</a></li><li><i class="fas fa-phone"></i><a href="tel:[business_phone]">[business_phone]</a></li><li><a href="/"><i class="fas fa-map-marker-alt"></i><span>[business_address]</span></a></li></ul></div><div class="footer-col footer-extra"><h3 class="footer-heading">שעות פעילות</h3><ul class="hours-list"><li><a href="/"><span>ראשון – חמישי</span><span>09:00 – 18:00</span></a></li><li><a href="/"><span>שישי</span><span>09:00 – 13:00</span></a></li><li><a href="/"><span>שבת</span><span>סגור</span></a></li></ul><div class="footer-badge"><i class="fas fa-award"></i><span>מאור נדלן 46 – שירות אישי ומקצועי</span></div></div></div></div></div><div class="footer-bottom"><div class="footer-container"><div class="footer-bottom-inner"><p class="copyright">© 2026 מאור נדלן 46. כל הזכויות שמורות.</p><div class="footer-bottom-links"><a href="/privacy">מדיניות פרטיות</a><span class="separator">|</span><a href="/terms">תנאי שימוש</a><span class="separator">|</span>
+            <a href="/return-policy" aria-label="מדיניות החזרות">
+              מדיניות החזרות
+            </a><span class="separator">|</span><a href="/accessibility">נגישות</a><span class="separator">|</span><a href="https://zappy5.com" target="_blank" class="zappy-attribution">נוצר באמצעות Zappy</a></div></div></div></div></footer>
   
   <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
@@ -1762,121 +1325,6 @@
       if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileLangMenu); }
       else { initMobileLangMenu(); }
       window.addEventListener('resize', function() { clearTimeout(window._mlrt); window._mlrt = setTimeout(initMobileLangMenu, 250); });
-    })();
-    </script>
-
-    <script>
-    (function(){
-      var _applied=false;
-      function _isHeroBg(w){var img=w.querySelector('img');if(img&&(img.getAttribute('data-hero-bg')==='true'||img.getAttribute('data-hero-background')==='true'))return true;var p=(w.style.position||'').replace(/\s*!important\s*/g,'').trim();var ww=(w.style.width||'').replace(/\s*!important\s*/g,'').trim();var hh=(w.style.height||'').replace(/\s*!important\s*/g,'').trim();return p==='absolute'&&ww==='100%'&&hh==='100%';}
-      function fixDesktopWrappers(){
-        // No-op: desktop wrapper restoration is handled by ZAPPY_PUBLISHED_ZOOM_WRAPPER_RUNTIME
-        // in script.js (restoreWrapperDimensions). The old inflation logic here was expanding
-        // small wrappers (e.g. 139px logo wrappers) to their parent width, conflicting with
-        // the correct stored dimensions.
-      }
-      function applyMobile(){
-        if(_applied)return;_applied=true;
-        document.querySelectorAll('[data-zappy-zoom-wrapper="true"]').forEach(function(w){
-          var cw=w.style.getPropertyValue('width');
-          if(!cw||cw==='100%')return;
-          if(!w._zappyDesktop)w._zappyDesktop={wStyle:w.getAttribute('style')};
-          var img=w.querySelector('img');
-          if(!img)return;
-          if(!img._zappyDesktop)img._zappyDesktop={src:img.getAttribute('src'),style:img.getAttribute('style')};
-          var mobileZoom=parseFloat(img.getAttribute('data-zappy-mobile-zoom'));
-          var mobileSrc=img.getAttribute('data-zappy-mobile-src');
-          var mobilePos=img.getAttribute('data-zappy-mobile-object-position');
-          var parentOvf=w.parentElement?((w.parentElement.style.overflow||'')+(window.getComputedStyle(w.parentElement).overflow||'')).trim():'';
-          var inConstrainedParent=parentOvf.indexOf('hidden')!==-1||parentOvf.indexOf('clip')!==-1;
-          if(inConstrainedParent){
-            w.style.setProperty('max-width','100%','important');
-          }else{
-            w.style.setProperty('width','100%','important');
-            w.style.setProperty('max-width','100%','important');
-          }
-          if(mobileSrc)img.src=mobileSrc;
-          var pos=mobilePos||img.style.getPropertyValue('object-position')||'50% 50%';
-          if(mobileZoom>1){
-            var wH=w.getAttribute('data-zappy-zoom-wrapper-height');
-            w.style.setProperty('height',wH||'200px','important');
-            img.style.setProperty('position','relative','important');
-            img.style.setProperty('width','100%','important');
-            img.style.setProperty('height','auto','important');
-            img.style.setProperty('min-height','100%','important');
-            img.style.setProperty('max-width','none','important');
-            img.style.setProperty('max-height','none','important');
-            img.style.setProperty('object-fit','cover','important');
-            img.style.setProperty('left','0','important');
-            img.style.setProperty('top','0','important');
-            img.style.setProperty('object-position',pos,'important');
-            img.style.setProperty('transform','scale('+mobileZoom+')','important');
-            img.style.setProperty('transform-origin',pos,'important');
-          }else{
-            if(!inConstrainedParent)w.style.setProperty('height','auto','important');
-            img.style.setProperty('position','relative','important');
-            img.style.setProperty('width','100%','important');
-            img.style.setProperty('height','auto','important');
-            img.style.setProperty('max-width','100%','important');
-            img.style.setProperty('max-height',inConstrainedParent?'none':'400px','important');
-            img.style.setProperty('object-fit','cover','important');
-            img.style.setProperty('left','0','important');
-            img.style.setProperty('top','0','important');
-            img.style.setProperty('transform','none','important');
-            if(mobilePos)img.style.setProperty('object-position',pos,'important');
-          }
-        });
-        document.querySelectorAll('img[data-zappy-mobile-src],img[data-zappy-mobile-object-position],img[data-zappy-mobile-zoom]').forEach(function(img){
-          var zw=img.closest('[data-zappy-zoom-wrapper="true"]');
-          if(zw&&!_isHeroBg(zw))return;
-          if(!img._zappyDesktop)img._zappyDesktop={src:img.getAttribute('src'),style:img.getAttribute('style')};
-          var mobileSrc=img.getAttribute('data-zappy-mobile-src');
-          var mobilePos=img.getAttribute('data-zappy-mobile-object-position');
-          var mobileZoom=parseFloat(img.getAttribute('data-zappy-mobile-zoom'));
-          if(mobileSrc)img.src=mobileSrc;
-          if(mobilePos)img.style.setProperty('object-position',mobilePos,'important');
-          if(mobileZoom>1){
-            img.style.setProperty('transform','scale('+mobileZoom+')','important');
-            img.style.setProperty('transform-origin',mobilePos||'50% 50%','important');
-            var p=img.parentElement;
-            if(p)p.style.setProperty('overflow','hidden','important');
-          }
-        });
-      }
-      function revertDesktop(){
-        if(!_applied)return;_applied=false;
-        document.querySelectorAll('[data-zappy-zoom-wrapper="true"]').forEach(function(w){
-          if(w._zappyDesktop&&w._zappyDesktop.wStyle!=null){w.setAttribute('style',w._zappyDesktop.wStyle);}
-          var img=w.querySelector('img');
-          if(img&&img._zappyDesktop){
-            if(img._zappyDesktop.src!=null)img.setAttribute('src',img._zappyDesktop.src);
-            if(img._zappyDesktop.style!=null)img.setAttribute('style',img._zappyDesktop.style);
-            else img.removeAttribute('style');
-          }
-        });
-        document.querySelectorAll('img[data-zappy-mobile-src],img[data-zappy-mobile-object-position],img[data-zappy-mobile-zoom]').forEach(function(img){
-          var zw=img.closest('[data-zappy-zoom-wrapper="true"]');
-          if(zw&&!_isHeroBg(zw))return;
-          if(img._zappyDesktop){
-            if(img._zappyDesktop.src!=null)img.setAttribute('src',img._zappyDesktop.src);
-            if(img._zappyDesktop.style!=null)img.setAttribute('style',img._zappyDesktop.style);
-            else img.removeAttribute('style');
-          }
-        });
-        _fixHeroBgWrappers();
-        fixDesktopWrappers();
-      }
-      function _fixHeroBgWrappers(){var isMob=window.innerWidth<=768;document.querySelectorAll('[data-zappy-zoom-wrapper="true"]').forEach(function(w){if(!_isHeroBg(w))return;w.style.setProperty('position','absolute','important');w.style.setProperty('top','0','important');w.style.setProperty('left','0','important');w.style.setProperty('width','100%','important');w.style.setProperty('height','100%','important');w.style.setProperty('max-width','none','important');w.style.setProperty('overflow','hidden','important');w.setAttribute('data-zappy-zoom-wrapper-width-mode','full');var img=w.querySelector('img');if(img){img.style.setProperty('width','100%','important');img.style.setProperty('height','100%','important');img.style.setProperty('object-fit','cover','important');img.style.setProperty('position','relative','important');img.style.setProperty('top','0','important');img.style.setProperty('left','0','important');img.style.setProperty('max-width','none','important');img.style.setProperty('max-height','none','important');img.style.setProperty('display','block','important');if(isMob){var mSrc=img.getAttribute('data-zappy-mobile-src');var mPos=img.getAttribute('data-zappy-mobile-object-position');var mZoom=parseFloat(img.getAttribute('data-zappy-mobile-zoom'));if(mSrc){if(!img._zappyDesktop)img._zappyDesktop={src:img.getAttribute('src'),style:img.getAttribute('style')};img.src=mSrc;}if(mPos)img.style.setProperty('object-position',mPos,'important');if(mZoom>1){img.style.setProperty('transform','scale('+mZoom+')','important');img.style.setProperty('transform-origin',mPos||'50% 50%','important');}}}});}
-      function init(){
-        _fixHeroBgWrappers();
-        var mq=window.matchMedia('(max-width:768px)');
-        function onChange(e){if(e.matches)applyMobile();else revertDesktop();}
-        if(mq.matches)applyMobile();
-        else fixDesktopWrappers();
-        try{mq.addEventListener('change',onChange);}catch(e){mq.addListener(onChange);}
-      }
-      if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
-      else setTimeout(init,50);
     })();
     </script>
 </body>
